@@ -1,1 +1,6 @@
-#!/usr/bin/python3
+
+classe Core -> possède les touches ainsi que la boucle principale
+
+
+système de grilles pour les niveaux (classe : level)
+
