@@ -45,19 +45,6 @@ def getKeys():
 	
 	return keys_input
 
-#///////////////////////////////// execution
-	
-	"""if event.type == pygame.KEYDOWN:
-			
-			for x in range(0,len(keys_nb)):
-
-				if event.key == keys_nb[x] and not(keys_name[x] in keys_input):
-					keys_input.append(keys_name[x])
-
-		if event.type == KEYUP:
-			for x in range(0,len(keys_nb)):
-				if event.key == keys_nb[x] and keys_name[x] in keys_input:
-					keys_input.remove(keys_name[x])"""
 
 #///////////////////////////////// execution
 
