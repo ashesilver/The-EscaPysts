@@ -48,22 +48,33 @@ def getKeys():
 
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
+
+	screen = initialize()
+	clock = pygame.time.Clock()
+	
 	def __init__(self, FPS_limit=240):
 		#whole pygame support
-		Core.screen = initialize()
-		Core.clock = pygame.time.Clock()
-		Core.FPS_limit = FPS_limit
+		
+		self.fpsLimit = FPS_limit
 
 		#object-precised vars
-		self.QUIT = False
+		self.quit = False
 
 	def run(self):
-		while not self.QUIT:
-			Core.clock.tick(Core.FPS_limit) #defines clock's max speed by (1/FPS_limit) ms per frame
-			self.QUIT = getKeys()
-			if type(self.QUIT) != bool:
-				print(self.QUIT)
-				self.QUIT = False
+		while not self.quit:
+			Core.clock.tick(self.fpsLimit) #defines clock's max speed by (1/FPS_limit) ms per frame
+			self.quit = getKeys()
+			if type(self.quit) != bool:
+				print(self.quit)
+				self.quit = False
+
+
+class Level():
+	"""docstring for Level"""
+
+	def __init__(self, arg):
+		self.arg = arg
+		
 
 
 #///////////////////////////////// execution

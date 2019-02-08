@@ -1,3 +1,12 @@
+Memo - classes à créer:
+	*principale (menu et appel niveau)
+	*niveau (génération)
+	*ennemis
+	*joueur
+	*objet (énigmes)
+	*graphisme
+
+
 
 classe Core -> possède les touches ainsi que la boucle principale
 
