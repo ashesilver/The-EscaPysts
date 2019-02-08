@@ -11,7 +11,7 @@ def initialize(screen_l = 1200,screen_h = 675):
 	#returns pygame object (weird stuff)
 	pygame.init()
 	screen = pygame.display.set_mode((screen_l,screen_h))
-	pygame.display.set_caption("Escape Game")
+	pygame.display.set_caption("The EscaPysts")
 	#pygame.display.set_icon(pygame.image.load('images/'))
 	pygame.display.flip()
 	return screen
