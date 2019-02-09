@@ -7,6 +7,8 @@ from pygame.locals import *
 from random import randint
 from math import *
 
+import gridElements
+
 def initialize(screen_l = 1200,screen_h = 675):
 	#returns pygame object (weird stuff)
 	pygame.init()
@@ -69,6 +71,7 @@ class Core():
 			self.keys = getKeys()
 
 
+
 			####### game-ender
 			if type(self.keys) == bool:
 				self.quit = True
@@ -79,14 +82,30 @@ class Level():
 	"""docstring for Level"""
 	count = 0
 
-	def __init__(self, arg):
+	def __init__(self, arg=None):
 		self.arg = arg
 		self.id = Level.count
+
+		self.gridSelector = {}
+		self.gridLocator = []
+		self.gridElements = [ Activatable(x) for x in gridElements.var["lvl"+str(self.id)] ]
+
+
+
 		Level.count+=1
+
+
+class Activatable():
+	"""docstring for Activatable"""
+	def __init__(self, arg=None):
+		self.arg = arg
+		
 		
 
 
 #///////////////////////////////// execution
 
 game = Core(60)
-game.run()
+#game.run()
+test = Level()
+print(test.gridElements[0])
