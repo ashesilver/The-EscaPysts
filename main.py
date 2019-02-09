@@ -61,19 +61,28 @@ class Core():
 		self.quit = False
 
 	def run(self):
-		while not self.quit:
+
+		run = True
+
+		while run:
 			Core.clock.tick(self.fpsLimit) #defines clock's max speed by (1/FPS_limit) ms per frame
-			self.quit = getKeys()
-			if type(self.quit) != bool:
-				print(self.quit)
-				self.quit = False
+			self.keys = getKeys()
+
+
+			####### game-ender
+			if type(self.keys) == bool:
+				self.quit = True
+			run = not(self.quit)
 
 
 class Level():
 	"""docstring for Level"""
+	count = 0
 
 	def __init__(self, arg):
 		self.arg = arg
+		self.id = Level.count
+		Level.count+=1
 		
 
 
