@@ -47,20 +47,43 @@ def getKeys():
 	
 	return keys_input
 
+class Graphics():
+	"""Graphic handler for all pygame graphicEvents"""
+
+	screen = initialize()
+
+	def __init__(self, arg=None):
+		self.arg = arg
+
+	def levelBackroundUpdate(self,imageAdress):
+		bckg = pygame.image.load(imageAdress).convert()
+		self.screen.blit(bckg,(0,0))
+		pygame.display.flip()
+
+	def killPygameWindow(self):
+		pygame.quit()
+		
 
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
 
-	screen = initialize()
+	graphicHandler = Graphics()
 	clock = pygame.time.Clock()
 	
 	def __init__(self, FPS_limit=240):
-		#whole pygame support
-		
 		self.fpsLimit = FPS_limit
-
-		#object-precised vars
 		self.quit = False
+
+	def playableInLoop(self):
+		run = True
+		while run:
+
+
+			if type(self.keys) == bool:
+				self.quit = True
+			run = not(self.quit)
+			
+
 
 	def run(self):
 
@@ -70,6 +93,10 @@ class Core():
 			Core.clock.tick(self.fpsLimit) #defines clock's max speed by (1/FPS_limit) ms per frame
 			self.keys = getKeys()
 
+			####### first level trigger
+			if ("ENTER" or "Enter") in self.keys:
+				self.levelHandler = Level()
+				self.playerHandler = Player(self.keys)
 
 
 			####### game-ender
@@ -106,6 +133,7 @@ class Player():
 	def __init__(self, keys):
 		self.keys = keys
 		
+
 		
 		
 
@@ -113,6 +141,5 @@ class Player():
 #///////////////////////////////// execution
 
 game = Core(60)
-#game.run()
-test = Level()
+game.run()
 print(test.gridElements[0])
