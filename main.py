@@ -47,6 +47,8 @@ def getKeys():
 	
 	return keys_input
 
+
+
 class Graphics():
 	"""Graphic handler for all pygame graphicEvents"""
 
@@ -60,7 +62,7 @@ class Graphics():
 		self.screen.blit(bckg,(0,0))
 		pygame.display.flip()
 
-	def killPygameWindow(self):
+	def killWindow(self):
 		pygame.quit()
 		
 
@@ -74,6 +76,9 @@ class Core():
 		self.fpsLimit = FPS_limit
 		self.quit = False
 
+
+		self.temporaryKeyLock = []
+
 	def playableInLoop(self):
 		run = True
 		while run:
@@ -83,20 +88,40 @@ class Core():
 				self.quit = True
 			run = not(self.quit)
 			
+	def keyLock(self):
+		for x in self.keys:
+			if x in self.keysRegister:
+				self.keys.remove(x)
+				
 
 
 	def run(self):
 
 		run = True
+		static = True
+
+		options = False
+		play = False
 
 		while run:
 			Core.clock.tick(self.fpsLimit) #defines clock's max speed by (1/FPS_limit) ms per frame
 			self.keys = getKeys()
+			self.temporaryKeyLock = self.keys
 
 			####### first level trigger
-			if ("ENTER" or "Enter") in self.keys:
+			if (("ENTER" or "Enter") in self.keys or play) and not options:
+				play = True
+				static = False
 				self.levelHandler = Level()
 				self.playerHandler = Player(self.keys)
+
+			####### options menu trigger
+			if "esc" in self.keys or options:
+				options = True
+				static = False
+
+			if static:
+				pass
 
 
 			####### game-ender
@@ -116,7 +141,7 @@ class Level():
 
 		self.gridSelector = {}
 		self.gridLocator = []
-		self.gridElements = [ Activatable(x) for x in gridElements.var["lvl"+str(self.id)] ]
+		self.gridElements = [ Activatable(x) for x in gridElements.var["lvl"+str(self.id)] ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
 
 
 
