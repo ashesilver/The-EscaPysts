@@ -79,6 +79,26 @@ class Core():
 
 		self.temporaryKeyLock = []
 
+
+
+	def savingPath(self):
+		savefile = "save.txt"
+
+		try :
+			fichier = open(savefile,"r")
+		except:
+			fichier = open(savefile,"w")
+			fichier.write("0")
+			fichier.close()
+			fichier = open(savefile,"r")
+		finally:
+			save = int(fichier.read())
+			fichier.close()
+		
+		return save
+
+
+	"""
 	def playableInLoop(self):
 		run = True
 		while run:
@@ -87,11 +107,14 @@ class Core():
 			if type(self.keys) == bool:
 				self.quit = True
 			run = not(self.quit)
+	"""
 			
 	def keyLock(self):
 		for x in self.keys:
 			if x in self.keysRegister:
 				self.keys.remove(x)
+			else :
+				self.keysRegister.append(x)
 				
 
 
@@ -107,27 +130,44 @@ class Core():
 			Core.clock.tick(self.fpsLimit) #defines clock's max speed by (1/FPS_limit) ms per frame
 			self.keys = getKeys()
 			self.temporaryKeyLock = self.keys
+			
+			try :
+				self.keyLock()
+			
+			except :
+				####### game-ender
+				if type(self.keys) == bool:
+					self.quit = True
+				run = not(self.quit)
 
-			####### first level trigger
-			if (("ENTER" or "Enter") in self.keys or play) and not options:
-				play = True
-				static = False
-				self.levelHandler = Level()
-				self.playerHandler = Player(self.keys)
+			else :
+				####### first level trigger
+				if (("ENTER" or "Enter") in self.keys or play) and not options:
+					play = True
+					static = False
+					x=self.savingPath()
+					if not(bool(x)):
+						self.levelHandler = Level(int(x))
+					self.playerHandler = Player(self.keys)
 
-			####### options menu trigger
-			if "esc" in self.keys or options:
-				options = True
-				static = False
+				####### options menu trigger
+				if "esc" in self.keys or options:
+					options = True
+					static = False
 
-			if static:
-				pass
+				if static:
+					pass
 
 
-			####### game-ender
-			if type(self.keys) == bool:
-				self.quit = True
-			run = not(self.quit)
+				####### endLoop actions
+				self.keysRegister = self.temporaryKeyLock
+
+					
+
+				####### tests zone
+				print(self.keys)
+
+		self.graphicHandler.killWindow()
 
 
 class Level():
@@ -136,7 +176,8 @@ class Level():
 	count = 0
 
 	def __init__(self, arg=None):
-		self.arg = arg
+		if arg != None:
+			Level.count = arg
 		self.id = Level.count
 
 		self.gridSelector = {}
@@ -165,6 +206,6 @@ class Player():
 
 #///////////////////////////////// execution
 
-game = Core(60)
+game = Core(10)
 game.run()
-print(test.gridElements[0])
+quit()
