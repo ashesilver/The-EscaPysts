@@ -79,7 +79,8 @@ class Core():
 
 
 class Level():
-	"""docstring for Level"""
+	"""Level : gestionnaire du niveau en cours"""
+
 	count = 0
 
 	def __init__(self, arg=None):
@@ -96,9 +97,15 @@ class Level():
 
 
 class Activatable():
-	"""docstring for Activatable"""
+	"""Activatable  : classe des objets du niveau"""
 	def __init__(self, arg=None):
 		self.arg = arg
+
+class Player():
+	"""Player handler class & methods"""
+	def __init__(self, keys):
+		self.keys = keys
+		
 		
 		
 
