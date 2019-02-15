@@ -12,8 +12,10 @@ classe Core -> possède les touches ainsi que la boucle principale
 
 
 système de grilles pour les niveaux (classe : level)
+	systeme de pièces (sidescroll)
+	
 
 
 Graphics : initialise la fenetre
 		   peut la tuer
-
+	a faire : une méthode changant l'écran : graphic.sidescroll(NiveauEnCours, écranNuméroX)
