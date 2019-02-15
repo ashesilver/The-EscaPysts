@@ -3,7 +3,7 @@ Memo - classes à créer:
 	*niveau (génération)               //done
 	*ennemis                           //done
 	*joueur                            //done
-	*objet (énigmes)				   //done
+	*objet (énigmes)		   //done
 	*graphisme                         //done
 
 
@@ -19,3 +19,30 @@ système de grilles pour les niveaux (classe : level)
 Graphics : initialise la fenetre
 		   peut la tuer
 	a faire : une méthode changant l'écran : graphic.sidescroll(NiveauEnCours, écranNuméroX)
+	
+Ennemis :
+	attributs :
+		- self.stun (booléen)
+		- self.pos (tuple : X,Y)
+		- self.triggered (booléen)
+		- self.playerObject (pas sur)
+	- methodes :
+		- walk()
+		- followPlayer()
+		- search()
+	- fichier : 
+		- ennemiesPatern.py
+	
+Player :
+	méthodes :
+		- checkEnnemy()
+		- hide()	
+	attributs :
+		
+Activatable :
+	fichiers :
+		- gridElements.py :
+			format des variables : dict
+			
+	methodes :
+		- links(self, other)
