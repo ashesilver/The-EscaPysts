@@ -43,6 +43,12 @@ Activatable :
 	fichiers :
 		- gridElements.py :
 			format des variables : dict
+			- "canHide"
+			- "type"
+			- "gate"   //sortir des pièces
+			
 			
 	methodes :
 		- links(self, other)
+		- 
+		
