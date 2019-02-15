@@ -32,10 +32,13 @@ def getData(classe,i=0,sort=None):
 class Graphics():
 	"""Graphic handler for all pygame graphicEvents"""
 
-	screen = initialize()
+	screen = ()
 
-	def __init__(self, arg=None):
-		self.arg = arg
+	def __init__(self, screen_l = 1066,screen_h = 800):
+		self.screen_l = screen_l
+		self.screen_h = screen_h
+
+		Graphics.screen = initialize(self.screen_l,self.screen_h)
 
 	def levelBackroundUpdate(self,imageAdress):
 		bckg = pygame.image.load(imageAdress).convert()
@@ -45,12 +48,20 @@ class Graphics():
 	def killWindow(self):
 		pygame.quit()
 
+	def drawGrid(self):
+		for x in range(1,40):
+			pygame.draw.line(self.screen,[255,255,255],(x*self.screen_l/40,0),(x*self.screen_l/40,self.screen_h))
+		for y in range(1,30):
+			pygame.draw.line(self.screen,[255,255,255],(0,y*self.screen_h/30),(self.screen_l,y*self.screen_h/30))
+		pygame.display.flip()
+
+
 	def getKeys(self):
 		#no parameters
 		#gives a "quit = true" if the player presses Alt+F4, otherwise gives the pressed keys
 
 		keys_name = ["U","L","D","R","Enter","ENTER","esc","1","2","3","4"]
-		keys_nb = [273,276,274,275,13,271,27,49,50,51,52] # touches "1234" pour linux : [38,233,34,39] - alternative windows [49,50,51,52]
+		keys_nb = [273,276,274,275,13,271,27,38,233,34,39] # touches "1234" pour linux : [38,233,34,39] - alternative windows [49,50,51,52]
 		keys_input = []
 
 		all_keys = pygame.key.get_pressed()
@@ -122,16 +133,16 @@ class Core():
 	def run(self):
 
 		run = True
-		static = True #(main menu)
+		static = True #(menu)
 
-		options = False #(options menu)
-		play = False #(level)
+		options = False
+		play = False
 
 		####### game loop
 		while run:
 			Core.clock.tick(self.fpsLimit) #defines clock's max speed by (1/FPS_limit) ms per frame
 			self.keys = self.graphicHandlerObject.getKeys()
-			
+			self.graphicHandlerObject.drawGrid()
 
 			#temporaryKeyLock = copy.deepcopy(self.keys)
 			try :
@@ -174,6 +185,8 @@ class Core():
 
 				####### tests zone
 
+				print(self.keys)
+
 
 
 class Level():
@@ -186,9 +199,9 @@ class Level():
 			Level.count = arg
 		self.id = Level.count
 
-		self.Selector = {}
-		self.Locator = []
-		self.Elements = [ Activatable(x) for x in gameplayElements.var["lvl"+str(self.id)] ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
+		self.selector = {}
+		self.locator = []
+		self.elements = [ Activatable(x) for x in gameplayElements.var["lvl"+str(self.id)] ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
 
 		Level.count+=1
 
