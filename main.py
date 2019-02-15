@@ -122,10 +122,10 @@ class Core():
 	def run(self):
 
 		run = True
-		static = True #(menu)
+		static = True #(main menu)
 
-		options = False
-		play = False
+		options = False #(options menu)
+		play = False #(level)
 
 		####### game loop
 		while run:
