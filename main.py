@@ -194,8 +194,6 @@ class Level():
 		finally:
 			self.save = int(fichier.read())
 			fichier.close()
-		
-			print("lol")
 
 	def save(self):
 		self.id += 1
@@ -231,7 +229,6 @@ class Ennemies():
 				pass
 
 
-
 		def followPlayer(self,other):
 			if not self.stun and self.triggred:
 				pass
@@ -244,6 +241,7 @@ class Ennemies():
 
 
 #///////////////////////////////// execution
+
 
 game = Core(10)
 game.run()
