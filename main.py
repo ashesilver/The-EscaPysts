@@ -84,26 +84,6 @@ class Core():
 		self.fpsLimit = FPS_limit
 		self.quit = False
 
-
-
-
-	def memoryPath(self):
-		savefile = "save.txt"
-
-		try :
-			fichier = open(savefile,"r")
-		except:
-			fichier = open(savefile,"w")
-			fichier.write("0")
-			fichier.close()
-			fichier = open(savefile,"r")
-		finally:
-			save = int(fichier.read())
-			fichier.close()
-		
-		return save
-
-
 	"""
 	def playableInLoop(self):
 		run = True
@@ -151,14 +131,21 @@ class Core():
 			else :
 				####### level trigger
 				if (("ENTER" or "Enter") in self.keys or play):
-					play = True
-					static = False
+					if not play:
+						self.levelHandlerObject = Level()
+						self.playerHandlerObject = Player(self.keys)
+						play = True
+						static = False
+						self.levelHandlerObject.test()
+
+					"""
 					x = self.memoryPath()
 					if not(bool(x)):
 						self.levelHandlerObject = Level(int(x))
 					else :
 						self.levelHandlerObject = Level()
-					self.playerHandlerObject = Player(self.keys)
+					"""
+
 
 					####### in-level actions :
 
@@ -179,25 +166,45 @@ class Core():
 
 				####### tests zone
 
-				print(self.keys)
+				#print(self.keys)
 
 
 
 class Level():
 	"""Level : gestionnaire du niveau en cours"""
 
-	count = 0
-
 	def __init__(self, arg=None):
-		if arg != None:
-			Level.count = arg
-		self.id = Level.count
+		self.memoryPath()
+		self.id = int(self.save)
 
 		self.selector = {}
 		self.locator = []
 		self.elements = [ Activatable(x) for x in gameplayElements.var["lvl"+str(self.id)] ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
 
-		Level.count+=1
+	def memoryPath(self):
+		self.savefile = "save.txt"
+
+		try :
+			fichier = open(self.savefile,"r")
+		except:
+			fichier = open(self.savefile,"w")
+			fichier.write("0")
+			fichier.close()
+			fichier = open(self.savefile,"r")
+		finally:
+			self.save = int(fichier.read())
+			fichier.close()
+		
+			print("lol")
+
+	def save(self):
+		self.id += 1
+		fichier = open(self.savefile,"w")
+		fichier.write(str(self.id))
+		fichier.close()
+
+	def test(self):
+		print(self.id)
 
 
 class Activatable():
