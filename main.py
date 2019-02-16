@@ -19,14 +19,7 @@ def initialize(screen_l = 1200,screen_h = 675):
 	pygame.display.flip()
 	return screen
 
-###### shouldn't be used in a propery-coded game.
-def getData(classe,i=0,sort=None):
-	"""get the data of something;
-	i must be an int ; sort must be a str ; classe must be an existing object"""
-	obj = classe
-	obj.number = i
-	obj.kind = sort
-	return obj.output_data()
+
 
 
 class Graphics():
@@ -83,7 +76,7 @@ class Graphics():
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
 
-	graphicHandlerObject = Graphics()
+	graphicHandlerObject = Graphics(800,600)
 	clock = pygame.time.Clock()
 	
 	def __init__(self, FPS_limit=240):
