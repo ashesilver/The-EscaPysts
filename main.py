@@ -9,6 +9,7 @@ from math import *
 
 ###### external files
 import gridElements as gameplayElements
+import EnnemiesPattern as ennemiesPat
 
 def initialize(screen_l = 1200,screen_h = 675):
 	#returns pygame object (weird stuff)
@@ -210,7 +211,28 @@ class Player():
 		self.keys = keys
 		
 
-		
+class Ennemies():
+	def __init__(self, arg=None):
+		self.arg = arg
+		self.position = (0,0)
+		self.stun = False
+		self.triggered = False
+		# self.playerObject =
+
+		def walk(self):
+			if not self.stun and not self.triggred:
+				pass
+
+
+
+		def followPlayer(self,other):
+			if not self.stun and self.triggred:
+				pass
+
+			
+		def search(self,other):
+			if not self.stun and self.triggred : #and other.hidden
+				pass
 		
 
 
