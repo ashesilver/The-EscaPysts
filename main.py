@@ -108,9 +108,11 @@ class Core():
 	def keyLock(self):
 		for x in self.keys:
 			if x in self.keysRegister:
-				self.keys.remove(x)
+				if x != "U" and x !="D" and x !="L" and x !="R":
+					self.keys.remove(x)
 			else :
-				self.keysRegister.append(x)
+				if x != "U" and x !="D" and x !="L" and x !="R":
+					self.keysRegister.append(x)
 				
 
 
@@ -147,8 +149,10 @@ class Core():
 						play = True
 						static = False
 						# self.levelHandlerObject.test()
+					self.playerHandlerObject.keys = self.keys[:]
 					self.ennemiesHandlerObject.walk()
-					#self.playerHandlerObject.move_player()
+					self.playerHandlerObject.move_player()
+					
 
 						
 
@@ -224,7 +228,7 @@ class Level():
 
 	def defineGrid(self):
 		self.grid = [ [y for y in range (0,40)] for x in range (0,30) ]
-		self.graphicHandlerObject.drawGrid()
+		#self.graphicHandlerObject.drawGrid()
 
 
 class Activatable():
@@ -244,6 +248,7 @@ class Player():
 		self.graphicHandlerObject = graphicHandlerObject
 		self.levelHandlerObject = lvl
 		self.position = [10,20]
+		self.positionPrec = []
 		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
 
 
@@ -254,7 +259,20 @@ class Player():
 				is_hidden = True
 		return is_hidden
 
-	def move_player():
+	def move_player(self):
+		self.positionPrec = self.position[:]
+		if "U" in self.keys:
+			self.position[1] -= 1
+		elif "D" in self.keys :
+			self.position[1] += 1
+		if "R" in self.keys :
+			self.position[0] +=1
+		elif "L" in self.keys :
+			self.position[0] -=1
+		self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
+		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
+		
+
 		
 
 class Ennemies():
