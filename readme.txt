@@ -30,13 +30,15 @@ Ennemis :
 		- walk()
 		- followPlayer()
 		- search()
+		- checkPlayer()
 	- fichier : 
 		- ennemiesPatern.py
 	
 Player :
 	méthodes :
-		- checkEnnemy()
-		- hide()	
+		
+		- hide()
+		
 	attributs :
 		
 Activatable :
@@ -50,5 +52,4 @@ Activatable :
 			
 	methodes :
 		- links(self, other)
-		- 
-		
+		- activateObj()
