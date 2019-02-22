@@ -48,7 +48,10 @@ class Graphics():
 		for y in range(1,30):
 			pygame.draw.line(self.screen,[255,255,255],(0,y*self.screen_h/30),(self.screen_l,y*self.screen_h/30))
 		pygame.display.flip()
-
+		
+	def drawCircle(self,x,y):
+		pygame.draw.circle(self.screen,[255,255,255],[x*self.screen_l+4,y*self.screen_h+4],4,0)
+		pygame.display.flip()
 
 	def getKeys(self):
 		#no parameters
