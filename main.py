@@ -48,10 +48,15 @@ class Graphics():
 		for y in range(1,30):
 			pygame.draw.line(self.screen,[255,255,255],(0,y*self.screen_h/30),(self.screen_l,y*self.screen_h/30))
 		pygame.display.flip()
-		
+
 	def drawCircle(self,x,y):
 		pygame.draw.circle(self.screen,[255,255,255],[x*self.screen_l+4,y*self.screen_h+4],4,0)
 		pygame.display.flip()
+
+	def set_element(element):
+			img = pygame.image.load(element."image").convert()
+			img_rect = img.get_rect()
+			screen.blit(img,img_rect)
 
 	def getKeys(self):
 		#no parameters
@@ -183,7 +188,9 @@ class Level():
 
 		self.selector = {}
 		self.locator = []
-		self.elements = [ Activatable(x) for x in gameplayElements.var["lvl"+str(self.id)] ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
+
+		tmp = gameplayElements.var["lvl"+str(self.id)]
+		self.elements = [ ( Activatable(x,tmp[x]['position'][i],tmp[x]['destination'][i]) for i in range(0,len(tmp[x]['position'])) ) for x in tmp ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
 		self.graphicHandlerObject = arg
 		self.defineGrid()
 
@@ -217,14 +224,13 @@ class Level():
 
 class Activatable():
 	"""Activatable  : classe des objets du niveau"""
-	def __init__(self, arg=None):
-		self.arg = arg
-"""
-	def set_elements(self):
-		for element in self.elements:
-			img = pygame.image.load(element."image").convert()
-			img_rect = img.get_rect()
-			screen.blit(img,img_rect)"""
+	def __init__(self, obj, position, destination):
+		self.imageAdress = obj['image']
+		self.size = obj['size']
+		self.position = position
+		self.destination = destination
+
+
 
 class Player():
 	"""Player handler class & methods"""
