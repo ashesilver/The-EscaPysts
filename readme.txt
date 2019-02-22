@@ -7,17 +7,16 @@ Memo - classes à créer:
 	*graphisme                         //done
 
 
-
 classe Core -> possède les touches ainsi que la boucle principale
 
 
-système de grilles pour les niveaux (classe : level)
+système de grilles pour les niveaux (classe : level) //done
 	systeme de pièces (sidescroll)
 	
 
 
-Graphics : initialise la fenetre
-		   peut la tuer
+Graphics : initialise la fenetre //done
+		   peut la tuer//done
 	a faire : une méthode changant l'écran : graphic.sidescroll(NiveauEnCours, écranNuméroX)
 	
 Ennemis :
