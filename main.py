@@ -42,19 +42,20 @@ class Graphics():
 	def killWindow(self):
 		pygame.quit()
 
+	"""
 	def drawGrid(self):
 		for x in range(1,40):
 			pygame.draw.line(self.screen,[255,255,255],(x*self.screen_l/40,0),(x*self.screen_l/40,self.screen_h))
 		for y in range(1,30):
 			pygame.draw.line(self.screen,[255,255,255],(0,y*self.screen_h/30),(self.screen_l,y*self.screen_h/30))
-		pygame.display.flip()
+		pygame.display.flip()"""
 
 	def drawCircle(self,x,y):
-		pygame.draw.circle(self.screen,[randint(0,255),randint(0,255),randint(0,255)],[int(x*self.screen_l/40+10),int(y*self.screen_h/30+10)],8,0)
+		pygame.draw.circle(self.screen,[randint(0,255),randint(0,255),randint(0,255)],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
 		pygame.display.flip()
 
 	def destroyCircle(self,x,y):
-		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/40+10),int(y*self.screen_h/30+10)],8,0)
+		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
 		pygame.display.flip()
 
 	def drawActivatable(element):
@@ -141,7 +142,7 @@ class Core():
 
 			else :
 				####### level trigger
-				if (("ENTER" or "Enter") in self.keys or play):
+				if ("ENTER" in self.keys or "Enter" in self.keys) or play:
 					if not play:
 						self.levelHandlerObject = Level(self.graphicHandlerObject)
 						self.playerHandlerObject = Player(self.graphicHandlerObject,self.levelHandlerObject,self.keys)
@@ -201,7 +202,7 @@ class Level():
 		tmp = gameplayElements.var["lvl"+str(self.id)]
 		self.elements = [ ( Activatable(x,tmp[x]['position'][i],tmp[x]['destination'][i]) for i in range(0,len(tmp[x]['position'])) ) for x in tmp ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
 		self.graphicHandlerObject = arg
-		self.grid = [ [y for y in range (0,40)] for x in range (0,30) ]
+		self.grid = [ [y for y in range (0,40*2)] for x in range (0,30*2) ] #bigger grid (*2)
 
 	def memoryPath(self):
 		self.savefile = "save.txt"
@@ -246,6 +247,7 @@ class Player():
 		self.position = [10,20]
 		self.positionPrec = []
 		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
+		self.walkTick = 0
 
 
 	def hidden(self,other):
@@ -256,17 +258,19 @@ class Player():
 		return is_hidden
 
 	def move_player(self):
-		self.positionPrec = self.position[:]
-		if "U" in self.keys and self.position[1] > 0 :
-			self.position[1] -= 1
-		elif "D" in self.keys and self.position[1] < len(self.levelHandlerObject.grid)-1:
-			self.position[1] += 1
-		if "R" in self.keys and self.position[0] < len(self.levelHandlerObject.grid[0])-1 :
-			self.position[0] +=1
-		elif "L" in self.keys and self.position[0] > 0:
-			self.position[0] -=1
-		self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
-		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
+		self.walkTick += 1
+		if not self.walkTick%4 :
+			self.positionPrec = self.position[:]
+			if "U" in self.keys and self.position[1] > 0 :
+				self.position[1] -= 1
+			elif "D" in self.keys and self.position[1] < len(self.levelHandlerObject.grid)-1:
+				self.position[1] += 1
+			if "R" in self.keys and self.position[0] < len(self.levelHandlerObject.grid[0])-1 :
+				self.position[0] +=1
+			elif "L" in self.keys and self.position[0] > 0:
+				self.position[0] -=1
+			self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
+			self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
 		
 
 		
@@ -282,10 +286,12 @@ class Ennemies():
 		self.triggered = False
 		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
 		self.direction="up"
-		# self.playerObject =
+
+		self.walkTick = 0
 
 	def walk(self):
-		if not self.stun and not self.triggered:
+		self.walkTick += 1
+		if not self.stun and not self.triggered and not self.walkTick%4: #walk activates each %x frames
 			self.positionPrec = self.position[:]
 			if self.position[0]==20 and self.position[1]!=6:
 				self.position[1]-=1
@@ -312,6 +318,6 @@ class Ennemies():
 #///////////////////////////////// execution
 
 
-game = Core(10)
+game = Core(60)
 game.run()
 quit()
