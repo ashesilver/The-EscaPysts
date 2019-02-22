@@ -144,7 +144,8 @@ class Core():
 						self.ennemiesHandlerObject = Ennemies(self.graphicHandlerObject,self.levelHandlerObject,self.playerHandlerObject)
 						play = True
 						static = False
-						self.levelHandlerObject.test()
+						# self.levelHandlerObject.test()
+					self.ennemiesHandlerObject.walk()
 						
 
 					"""
@@ -251,24 +252,33 @@ class Ennemies():
 		self.graphicHandlerObject = arg
 		self.levelHandlerObject = levelO
 		self.playerHandlerObject = player0
-		self.position = (0,0)
+		self.position = [20,15]
 		self.stun = False
 		self.triggered = False
+		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
+		self.direction="up"
 		# self.playerObject =
 
-		def walk(self):
-			if not self.stun and not self.triggred:
-				pass
+	def walk(self):
+		if not self.stun and not self.triggered:
+			if self.position[0]==20 and self.position[1]!=6:
+				self.position[1]-=1
+			if self.position[0]!=31 and self.position[1]==6:
+				self.position[0]+=1
+			if self.position[0]==31 and self.position[1]!=21:
+				self.position[1]+=1
+			if self.position[1]==21 and self.position[0]!=15:
+				self.position[0]-=1
+			self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
 
+	def followPlayer(self,other):
+		if not self.stun and self.triggered:
+			pass
 
-		def followPlayer(self,other):
-			if not self.stun and self.triggred:
-				pass
-
-			
-		def search(self,other):
-			if not self.stun and self.triggred : #and other.hidden
-				pass
+		
+	def search(self,other):
+		if not self.stun and self.triggered : #and other.hidden
+			pass
 		
 
 
