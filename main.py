@@ -50,7 +50,11 @@ class Graphics():
 		pygame.display.flip()
 
 	def drawCircle(self,x,y):
-		pygame.draw.circle(self.screen,[randint(0,255),randint(0,255),randint(0,255)],[x*self.screen_l/40+10,y*self.screen_h/30+10],8,0)
+		pygame.draw.circle(self.screen,[255,255,255],[x*self.screen_l/40+10,y*self.screen_h/30+10],8,0)
+		pygame.display.flip()
+
+	def destroyCircle(self,x,y):
+		pygame.draw.circle(self.screen,[0,0,0],[x*self.screen_l/40+10,y*self.screen_h/30+10],8,0)
 		pygame.display.flip()
 
 	def drawActivatable(element):
@@ -96,8 +100,6 @@ class Core():
 	def playableInLoop(self):
 		run = True
 		while run:
-
-
 			if type(self.keys) == bool:
 				self.quit = True
 			run = not(self.quit)
@@ -253,6 +255,7 @@ class Ennemies():
 		self.levelHandlerObject = levelO
 		self.playerHandlerObject = player0
 		self.position = [20,15]
+		self.positionPrec= [0,0]
 		self.stun = False
 		self.triggered = False
 		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
@@ -261,15 +264,17 @@ class Ennemies():
 
 	def walk(self):
 		if not self.stun and not self.triggered:
+			self.positionPrec = self.position[:]
 			if self.position[0]==20 and self.position[1]!=6:
 				self.position[1]-=1
-			if self.position[0]!=31 and self.position[1]==6:
+			elif self.position[0]!=32 and self.position[1]==6:
 				self.position[0]+=1
-			if self.position[0]==31 and self.position[1]!=21:
+			elif self.position[0]==32 and self.position[1]!=20:
 				self.position[1]+=1
-			if self.position[1]==21 and self.position[0]!=15:
+			elif self.position[1]==20 and self.position[0]!=15:
 				self.position[0]-=1
 			self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
+			self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
 
 	def followPlayer(self,other):
 		if not self.stun and self.triggered:
