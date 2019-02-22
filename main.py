@@ -50,7 +50,7 @@ class Graphics():
 		pygame.display.flip()
 
 	def drawCircle(self,x,y):
-		pygame.draw.circle(self.screen,[255,255,255],[x*self.screen_l/40+10,y*self.screen_h/30+10],8,0)
+		pygame.draw.circle(self.screen,[randint(0,255),randint(0,255),randint(0,255)],[x*self.screen_l/40+10,y*self.screen_h/30+10],8,0)
 		pygame.display.flip()
 
 	def drawActivatable(element):
