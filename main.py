@@ -148,6 +148,8 @@ class Core():
 						static = False
 						# self.levelHandlerObject.test()
 					self.ennemiesHandlerObject.walk()
+					#self.playerHandlerObject.move_player()
+
 						
 
 					"""
@@ -237,10 +239,13 @@ class Activatable():
 
 class Player():
 	"""Player handler class & methods"""
-	def __init__(self, playerObject,lvl, keys):
+	def __init__(self, graphicHandlerObject,lvl, keys):
 		self.keys = keys
-		self.playerHandlerObject = playerObject
+		self.graphicHandlerObject = graphicHandlerObject
 		self.levelHandlerObject = lvl
+		self.position = [10,20]
+		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
+
 
 	def hidden(self,other):
 		is_hidden = False
@@ -248,6 +253,9 @@ class Player():
 			if element == other.position:
 				is_hidden = True
 		return is_hidden
+
+	def move_player():
+		
 
 class Ennemies():
 	def __init__(self, arg, levelO, player0):
