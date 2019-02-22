@@ -53,10 +53,10 @@ class Graphics():
 		pygame.draw.circle(self.screen,[255,255,255],[x*self.screen_l+4,y*self.screen_h+4],4,0)
 		pygame.display.flip()
 
-	def set_element(element):
-			img = pygame.image.load(element."image").convert()
-			img_rect = img.get_rect()
-			screen.blit(img,img_rect)
+	def drawActivatable(element):
+			img = pygame.image.load(element.imageAdress).convert()
+			#img_rect = img.get_rect()
+			screen.blit(img,element.position)
 
 	def getKeys(self):
 		#no parameters
