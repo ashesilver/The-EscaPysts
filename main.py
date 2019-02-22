@@ -50,11 +50,11 @@ class Graphics():
 		pygame.display.flip()
 
 	def drawCircle(self,x,y):
-		pygame.draw.circle(self.screen,[randint(0,255),randint(0,255),randint(0,255)],[x*self.screen_l/40+10,y*self.screen_h/30+10],8,0)
+		pygame.draw.circle(self.screen,[randint(0,255),randint(0,255),randint(0,255)],[int(x*self.screen_l/40+10),int(y*self.screen_h/30+10)],8,0)
 		pygame.display.flip()
 
 	def destroyCircle(self,x,y):
-		pygame.draw.circle(self.screen,[0,0,0],[x*self.screen_l/40+10,y*self.screen_h/30+10],8,0)
+		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/40+10),int(y*self.screen_h/30+10)],8,0)
 		pygame.display.flip()
 
 	def drawActivatable(element):
@@ -201,7 +201,7 @@ class Level():
 		tmp = gameplayElements.var["lvl"+str(self.id)]
 		self.elements = [ ( Activatable(x,tmp[x]['position'][i],tmp[x]['destination'][i]) for i in range(0,len(tmp[x]['position'])) ) for x in tmp ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
 		self.graphicHandlerObject = arg
-		self.defineGrid()
+		self.grid = [ [y for y in range (0,40)] for x in range (0,30) ]
 
 	def memoryPath(self):
 		self.savefile = "save.txt"
@@ -225,10 +225,6 @@ class Level():
 
 	def test(self):
 		print(self.grid)
-
-	def defineGrid(self):
-		self.grid = [ [y for y in range (0,40)] for x in range (0,30) ]
-		#self.graphicHandlerObject.drawGrid()
 
 
 class Activatable():
@@ -261,13 +257,13 @@ class Player():
 
 	def move_player(self):
 		self.positionPrec = self.position[:]
-		if "U" in self.keys:
+		if "U" in self.keys and self.position[1] > 0 :
 			self.position[1] -= 1
-		elif "D" in self.keys :
+		elif "D" in self.keys and self.position[1] < len(self.levelHandlerObject.grid)-1:
 			self.position[1] += 1
-		if "R" in self.keys :
+		if "R" in self.keys and self.position[0] < len(self.levelHandlerObject.grid[0])-1 :
 			self.position[0] +=1
-		elif "L" in self.keys :
+		elif "L" in self.keys and self.position[0] > 0:
 			self.position[0] -=1
 		self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
 		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
