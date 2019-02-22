@@ -209,11 +209,24 @@ class Activatable():
 	"""Activatable  : classe des objets du niveau"""
 	def __init__(self, arg=None):
 		self.arg = arg
+		
+	"""	def set_elements(self):
+			for element in self.elements:
+				img = pygame.image.load(element."image").convert()
+				img_rect = img.get_rect()
+				screen.blit(img,img_rect)"""
 
 class Player():
 	"""Player handler class & methods"""
 	def __init__(self, keys):
 		self.keys = keys
+		
+	def hidden(self,other):
+		is_hidden = False
+		for element in gameplayElements.var["lvl"+str(level.id).hideout.positions]:
+			if element == other.position:
+				is_hidden = True
+		return is_hidden
 		
 
 class Ennemies():
