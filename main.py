@@ -116,7 +116,6 @@ class Core():
 		while run:
 			Core.clock.tick(self.fpsLimit) #defines clock's max speed by (1/FPS_limit) ms per frame
 			self.keys = self.graphicHandlerObject.getKeys()
-			self.graphicHandlerObject.drawGrid()
 
 			#temporaryKeyLock = copy.deepcopy(self.keys)
 			try :
@@ -132,11 +131,13 @@ class Core():
 				####### level trigger
 				if (("ENTER" or "Enter") in self.keys or play):
 					if not play:
-						self.levelHandlerObject = Level()
-						self.playerHandlerObject = Player(self.keys)
+						self.levelHandlerObject = Level(self.graphicHandlerObject)
+						self.playerHandlerObject = Player(self.graphicHandlerObject,self.levelHandlerObject,self.keys)
+						self.ennemiesHandlerObject = Ennemies(self.graphicHandlerObject,self.levelHandlerObject,self.playerHandlerObject)
 						play = True
 						static = False
 						self.levelHandlerObject.test()
+						
 
 					"""
 					x = self.memoryPath()
@@ -180,6 +181,8 @@ class Level():
 		self.selector = {}
 		self.locator = []
 		self.elements = [ Activatable(x) for x in gameplayElements.var["lvl"+str(self.id)] ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
+		self.graphicHandlerObject = arg
+		self.defineGrid()
 
 	def memoryPath(self):
 		self.savefile = "save.txt"
@@ -202,36 +205,43 @@ class Level():
 		fichier.close()
 
 	def test(self):
-		print(self.id)
+		print(self.grid)
+
+	def defineGrid(self):
+		self.grid = [ [y for y in range (0,40)] for x in range (0,30) ]
+		self.graphicHandlerObject.drawGrid()
 
 
 class Activatable():
 	"""Activatable  : classe des objets du niveau"""
 	def __init__(self, arg=None):
 		self.arg = arg
-		
-	"""	def set_elements(self):
-			for element in self.elements:
-				img = pygame.image.load(element."image").convert()
-				img_rect = img.get_rect()
-				screen.blit(img,img_rect)"""
+"""
+	def set_elements(self):
+		for element in self.elements:
+			img = pygame.image.load(element."image").convert()
+			img_rect = img.get_rect()
+			screen.blit(img,img_rect)"""
 
 class Player():
 	"""Player handler class & methods"""
-	def __init__(self, keys):
+	def __init__(self, playerObject,lvl, keys):
 		self.keys = keys
-		
+		self.playerHandlerObject = playerObject
+		self.levelHandlerObject = lvl
+
 	def hidden(self,other):
 		is_hidden = False
 		for element in gameplayElements.var["lvl"+str(level.id).hideout.positions]:
 			if element == other.position:
 				is_hidden = True
 		return is_hidden
-		
 
 class Ennemies():
-	def __init__(self, arg=None):
-		self.arg = arg
+	def __init__(self, arg, levelO, player0):
+		self.graphicHandlerObject = arg
+		self.levelHandlerObject = levelO
+		self.playerHandlerObject = player0
 		self.position = (0,0)
 		self.stun = False
 		self.triggered = False
