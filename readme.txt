@@ -3,8 +3,12 @@ Memo - classes à créer:
 	*niveau (génération)               //done
 	*ennemis                           //done
 	*joueur                            //done
-	*objet (énigmes)		   //done
+	*objet (énigmes)		   		   //done
 	*graphisme                         //done
+
+
+split class files system.
+
 
 
 classe Core -> possède les touches ainsi que la boucle principale
