@@ -1,91 +1,15 @@
 #!/bin/usr/python3
 # -*- coding:utf-8 -*-
 
-import pygame, time, copy
-from pygame.locals import *
+import time, copy
 
-from random import randint
 from math import *
 
 ###### external files
-import gridElements as gameplayElements
-import EnnemiesPattern as ennemiesPat
 
-def initialize(screen_l = 1200,screen_h = 675):
-	#returns pygame object (weird stuff)
-	pygame.init()
-	screen = pygame.display.set_mode((screen_l,screen_h))
-	pygame.display.set_caption("The EscaPysts")
-	#pygame.display.set_icon(pygame.image.load('images/'))
-	pygame.display.flip()
-	return screen
-
-
-
-
-class Graphics():
-	"""Graphic handler for all pygame graphicEvents"""
-
-	screen = ()
-
-	def __init__(self, screen_l = 1066,screen_h = 800):
-		self.screen_l = screen_l
-		self.screen_h = screen_h
-
-		Graphics.screen = initialize(self.screen_l,self.screen_h)
-
-	def levelBackroundUpdate(self,imageAdress):
-		bckg = pygame.image.load(imageAdress).convert()
-		self.screen.blit(bckg,(0,0))
-		pygame.display.flip()
-
-	def killWindow(self):
-		pygame.quit()
-
-	"""
-	def drawGrid(self):
-		for x in range(1,40):
-			pygame.draw.line(self.screen,[255,255,255],(x*self.screen_l/40,0),(x*self.screen_l/40,self.screen_h))
-		for y in range(1,30):
-			pygame.draw.line(self.screen,[255,255,255],(0,y*self.screen_h/30),(self.screen_l,y*self.screen_h/30))
-		pygame.display.flip()"""
-
-	def drawCircle(self,x,y):
-		pygame.draw.circle(self.screen,[randint(0,255),randint(0,255),randint(0,255)],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
-		pygame.display.flip()
-
-	def destroyCircle(self,x,y):
-		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
-		pygame.display.flip()
-
-	def drawActivatable(element):
-			img = pygame.image.load(element.imageAdress).convert()
-			#img_rect = img.get_rect()
-			screen.blit(img,element.position)
-
-	def getKeys(self):
-		#no parameters
-		#gives a "quit = true" if the player presses Alt+F4, otherwise gives the pressed keys
-
-		keys_name = ["U","L","D","R","Enter","ENTER","esc","1","2","3","4"]
-		keys_nb = [273,276,274,275,13,271,27,38,233,34,39] # touches "1234" pour linux : [38,233,34,39] - alternative windows [49,50,51,52]
-		keys_input = []
-
-		all_keys = pygame.key.get_pressed()
-		if all_keys[pygame.K_F4] and (all_keys[pygame.K_LALT] or all_keys[pygame.K_RALT]): 
-			self.killWindow()
-			return(True)
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				self.killWindow()
-				return(True)
-		for k in keys_nb:
-			if all_keys[k] :
-				keys_input.append(keys_name[keys_nb.index(k)])
-		#print(all_keys.index(1))
-		
-		return keys_input
-		
+from externalGraphics import *
+from externalLevel import *
+from externalPlayer import *
 
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
@@ -186,134 +110,7 @@ class Core():
 				####### tests zone
 
 				#print(self.keys)
-
-
-
-class Level():
-	"""Level : gestionnaire du niveau en cours"""
-
-	def __init__(self, arg=None):
-		self.memoryPath()
-		self.id = int(self.save)
-
-		self.selector = {}
-		self.locator = []
-
-		tmp = gameplayElements.var["lvl"+str(self.id)]
-		self.elements = [ ( Activatable(x,tmp[x]['position'][i],tmp[x]['destination'][i]) for i in range(0,len(tmp[x]['position'])) ) for x in tmp ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
-		self.graphicHandlerObject = arg
-		self.grid = [ [y for y in range (0,40*2)] for x in range (0,30*2) ] #bigger grid (*2)
-
-	def memoryPath(self):
-		self.savefile = "save.txt"
-
-		try :
-			fichier = open(self.savefile,"r")
-		except:
-			fichier = open(self.savefile,"w")
-			fichier.write("0")
-			fichier.close()
-			fichier = open(self.savefile,"r")
-		finally:
-			self.save = int(fichier.read())
-			fichier.close()
-
-	def save(self):
-		self.id += 1
-		fichier = open(self.savefile,"w")
-		fichier.write(str(self.id))
-		fichier.close()
-
-	def test(self):
-		print(self.grid)
-
-
-class Activatable():
-	"""Activatable  : classe des objets du niveau"""
-	def __init__(self, obj, position, destination):
-		self.imageAdress = obj['image']
-		self.size = obj['size']
-		self.position = position
-		self.destination = destination
-
-
-
-class Player():
-	"""Player handler class & methods"""
-	def __init__(self, graphicHandlerObject,lvl, keys):
-		self.keys = keys
-		self.graphicHandlerObject = graphicHandlerObject
-		self.levelHandlerObject = lvl
-		self.position = [10,20]
-		self.positionPrec = []
-		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
-		self.walkTick = 0
-
-
-	def hidden(self,other):
-		is_hidden = False
-		for element in gameplayElements.var["lvl"+str(level.id).hideout.positions]:
-			if element == other.position:
-				is_hidden = True
-		return is_hidden
-
-	def move_player(self):
-		self.walkTick += 1
-		if not self.walkTick%4 :
-			self.positionPrec = self.position[:]
-			if "U" in self.keys and self.position[1] > 0 :
-				self.position[1] -= 1
-			elif "D" in self.keys and self.position[1] < len(self.levelHandlerObject.grid)-1:
-				self.position[1] += 1
-			if "R" in self.keys and self.position[0] < len(self.levelHandlerObject.grid[0])-1 :
-				self.position[0] +=1
-			elif "L" in self.keys and self.position[0] > 0:
-				self.position[0] -=1
-			self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
-			self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
 		
-
-		
-
-class Ennemies():
-	def __init__(self, arg, levelO, player0):
-		self.graphicHandlerObject = arg
-		self.levelHandlerObject = levelO
-		self.playerHandlerObject = player0
-		self.position = [20,15]
-		self.positionPrec= [0,0]
-		self.stun = False
-		self.triggered = False
-		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
-		self.direction="up"
-
-		self.walkTick = 0
-
-	def walk(self):
-		self.walkTick += 1
-		if not self.stun and not self.triggered and not self.walkTick%4: #walk activates each %x frames
-			self.positionPrec = self.position[:]
-			if self.position[0]==20 and self.position[1]!=6:
-				self.position[1]-=1
-			elif self.position[0]!=32 and self.position[1]==6:
-				self.position[0]+=1
-			elif self.position[0]==32 and self.position[1]!=20:
-				self.position[1]+=1
-			elif self.position[1]==20 and self.position[0]!=15:
-				self.position[0]-=1
-			self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
-			self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
-
-	def followPlayer(self,other):
-		if not self.stun and self.triggered:
-			pass
-
-		
-	def search(self,other):
-		if not self.stun and self.triggered : #and other.hidden
-			pass
-		
-
 
 #///////////////////////////////// execution
 
