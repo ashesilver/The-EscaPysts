@@ -7,9 +7,9 @@ from math import *
 
 ###### external files
 
-from externalGraphics import *
-from externalLevel import *
-from externalPlayer import *
+from externalClasses.externalGraphics import *
+from externalClasses.externalLevel import *
+from externalClasses.externalPlayer import *
 
 class Core():
 	"""classe prinicpale gérant toutes les autres"""

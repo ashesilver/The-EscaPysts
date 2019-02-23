@@ -1,10 +1,10 @@
 #!/bin/usr/python3
 # -*- coding:utf-8 -*-
 
-import gridElements as gameplayElements
+import externalClasses.files.gridElements as gameplayElements
 
-from externalActivatable import *
-from externalEnnemies import *
+from externalClasses.externalActivatable import *
+from externalClasses.externalEnnemies import *
 
 class Level():
 	"""Level : gestionnaire du niveau en cours"""
