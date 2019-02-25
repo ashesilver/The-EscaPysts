@@ -1,7 +1,7 @@
 #!/bin/usr/python3
 # -*- coding:utf-8 -*-
 
-import externalClasses.files.EnnemiesPattern as ennemiesPat
+import externalClasses.data.EnnemiesPattern as ennemiesPat
 
 class Ennemies():
 	def __init__(self, arg, levelO, player0):
