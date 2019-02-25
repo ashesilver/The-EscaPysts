@@ -1,7 +1,7 @@
 #!/bin/usr/python3
 # -*- coding:utf-8 -*-
 
-import externalClasses.files.gridElements as gameplayElements
+import externalClasses.data.gridElements as gameplayElements
 
 from externalClasses.externalActivatable import *
 from externalClasses.externalEnnemies import *
