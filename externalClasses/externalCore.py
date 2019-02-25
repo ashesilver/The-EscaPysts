@@ -1,6 +1,10 @@
 #!/bin/usr/python3
 #-*-coding:utf8;-*-
 
+from externalClasses.externalGraphics import *
+from externalClasses.externalLevel import *
+from externalClasses.externalPlayer import *
+
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
 
