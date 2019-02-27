@@ -59,8 +59,13 @@ class Core():
 					run = not(self.keys)
 
 			else :
+
+				####### options menu trigger
+				if "esc" in self.keys or options:
+					if "esc" in self.keys:
+						options = not(options)
 				####### level trigger
-				if ("ENTER" in self.keys or "Enter" in self.keys) or play:
+				if (("ENTER" in self.keys or "Enter" in self.keys) or play) and not options:
 					if not play:
 						self.levelHandlerObject = Level(self.graphicHandlerObject)
 						self.playerHandlerObject = Player(self.graphicHandlerObject,self.levelHandlerObject,self.keys)
@@ -74,19 +79,11 @@ class Core():
 					self.playerHandlerObject.move_player()
 
 					
-
-
 					####### in-level actions :
-
-
-				####### options menu trigger
-				if "esc" in self.keys or options:
-					if "esc" in self.keys:
-						options = not(options)
-					static = False
-				
+					
+		
 				####### main menu
-				if static:
+				if static and not options:
 					pass
 
 
