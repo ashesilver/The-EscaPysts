@@ -2,12 +2,13 @@
 # -*- coding:utf-8 -*-
 
 import pygame
+from pygame.locals import *
 from random import randint
 
 def initialize(screen_l,screen_h):
 	#returns pygame object (weird stuff)
 	pygame.init()
-	screen = pygame.display.set_mode((screen_l,screen_h))
+	screen = pygame.display.set_mode((screen_l,screen_h), HWSURFACE | DOUBLEBUF )
 	pygame.display.set_caption("The EscaPysts")
 	#pygame.display.set_icon(pygame.image.load('images/'))
 	pygame.display.flip()
@@ -24,10 +25,13 @@ class Graphics():
 
 		Graphics.screen = initialize(self.screen_l,self.screen_h)
 
-	def levelBackroundUpdate(self,imageAdress):
-		bckg = pygame.image.load(imageAdress).convert()
-		self.screen.blit(bckg,(0,0))
-		pygame.display.flip()
+	def backgroundUpdate(self,imageAdress=None):
+		if not imageAdress==None:
+			self.bckg = pygame.image.load(imageAdress).convert()
+			self.bckg = pygame.transform.scale(self.bckg, (self.screen_l,self.screen_h))
+
+		self.screen.blit(self.bckg,(0,0))
+		#pygame.display.flip()
 
 	def killWindow(self):
 		pygame.quit()
@@ -41,12 +45,12 @@ class Graphics():
 		pygame.display.flip()"""
 
 	def drawCircle(self,x,y):
-		pygame.draw.circle(self.screen,[randint(0,255),randint(0,255),randint(0,255)],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
-		pygame.display.flip()
+		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
+		pygame.display.update()
 
 	def destroyCircle(self,x,y):
 		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
-		pygame.display.flip()
+		pygame.display.update()
 
 	def drawActivatable(element):
 			img = pygame.image.load(element.imageAdress).convert()

@@ -21,6 +21,8 @@ class Level():
 		self.graphicHandlerObject = arg
 		self.grid = [ [y for y in range (0,40*2)] for x in range (0,30*2) ] #bigger grid (*2)
 
+		self.graphicHandlerObject.backgroundUpdate("./images/lvl"+str(self.id)+".jpg")
+
 	def memoryPath(self):
 		self.savefile = "save.txt"
 

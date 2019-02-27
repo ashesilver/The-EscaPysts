@@ -7,6 +7,6 @@ from externalClasses.externalCore import *
 
 #///////////////////////////////// execution
 
-game = Core(60)
+game = Core(120)
 game.run()
 quit()

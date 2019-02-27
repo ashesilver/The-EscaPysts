@@ -68,20 +68,12 @@ class Core():
 						play = True
 						static = False
 						# self.levelHandlerObject.test()
+					self.graphicHandlerObject.backgroundUpdate()
 					self.playerHandlerObject.keys = self.keys[:]
 					self.ennemiesHandlerObject.walk()
 					self.playerHandlerObject.move_player()
+
 					
-
-						
-
-					"""
-					x = self.memoryPath()
-					if not(bool(x)):
-						self.levelHandlerObject = Level(int(x))
-					else :
-						self.levelHandlerObject = Level()
-					"""
 
 
 					####### in-level actions :
