@@ -8,7 +8,7 @@ from externalClasses.externalPlayer import *
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
 
-	graphicHandlerObject = Graphics(800,600)
+	graphicHandlerObject = Graphics()
 	clock = pygame.time.Clock()
 	
 	def __init__(self, FPS_limit=240):
@@ -73,10 +73,11 @@ class Core():
 						play = True
 						static = False
 						# self.levelHandlerObject.test()
-					#self.graphicHandlerObject.backgroundUpdate()
+					self.graphicHandlerObject.displayBackgroundUpdate()
 					self.playerHandlerObject.keys = self.keys[:]
-					self.ennemiesHandlerObject.walk()
-					self.playerHandlerObject.move_player()
+					self.ennemiesHandlerObject.update()
+					self.playerHandlerObject.update()
+					self.levelHandlerObject.update()
 
 					
 					####### in-level actions :
@@ -92,4 +93,4 @@ class Core():
 
 				####### tests zone
 
-				#print(self.keys)
+				

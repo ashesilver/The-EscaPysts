@@ -15,6 +15,9 @@ class Ennemies():
 		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
 		self.direction="up"
 
+		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
+		self.imageAdress = "./images/ennemy.jpg"
+
 		self.walkTick = 0
 
 	def walk(self):
@@ -29,8 +32,7 @@ class Ennemies():
 				self.position[1]+=1
 			elif self.position[1]==20 and self.position[0]!=15:
 				self.position[0]-=1
-			self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
-			self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
+			
 
 	def followPlayer(self,other):
 		if not self.stun and self.triggered:
@@ -40,3 +42,7 @@ class Ennemies():
 	def search(self,other):
 		if not self.stun and self.triggered : #and other.hidden
 			pass
+
+	def update(self):
+		self.walk()
+		self.graphicHandlerObject.displayActivatable(self)

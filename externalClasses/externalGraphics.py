@@ -19,13 +19,50 @@ class Graphics():
 
 	screen = ()
 
-	def __init__(self, screen_l = 1066,screen_h = 800):
+	def __init__(self, screen_l = 800,screen_h = 800):
 		self.screen_l = screen_l
 		self.screen_h = screen_h
 
 		Graphics.screen = initialize(self.screen_l,self.screen_h)
 
-	def backgroundUpdate(self,imageAdress=None):
+	def killWindow(self):
+		pygame.quit()
+
+
+
+	#DRAW METHODS   ----- > not used anymore
+	
+	def drawGrid(self):
+		for x in range(1,81):
+			pygame.draw.line(self.screen,[255,255,255],(x*self.screen_l/80,0),(x*self.screen_l/80,self.screen_h))
+		for y in range(1,81):
+			pygame.draw.line(self.screen,[255,255,255],(0,y*self.screen_h/80),(self.screen_l,y*self.screen_h/80))
+		#pygame.display.flip()
+	
+	def drawFlowerPot(self,x,y):
+		pygame.draw.circle(self.screen,[200,20,50],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(40*2)+5)],7,0)
+		pygame.draw.circle(self.screen,[0,200,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(40*2)+5)],5,0)
+		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(40*2)+5)],2,0)
+		pygame.display.update()
+
+	def drawCircle(self,x,y):
+		pygame.draw.circle(self.screen,[255,0,0],[int(x*self.screen_l/(40*2)+6),int(y*self.screen_h/(40*2)+5)],4,0)
+		#pygame.display.update()
+
+	def destroyCircle(self,x,y):
+		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+6),int(y*self.screen_h/(40*2)+5)],4,0)
+		#pygame.display.update()
+
+	#DISPLAY METHODS
+
+	
+	def displayActivatable(self,element):
+		img = pygame.image.load(element.imageAdress).convert()
+		img = pygame.transform.scale(img, [ int(x*self.screen_h/80) for x in element.size] )
+		self.screen.blit(img, [ int(x*self.screen_h/80) for x in element.position])
+		#pygame.display.update()
+		
+	def displayBackgroundUpdate(self,imageAdress=None):
 		if not imageAdress==None:
 			self.bckg = pygame.image.load(imageAdress).convert()
 			self.bckg = pygame.transform.scale(self.bckg, (self.screen_l,self.screen_h))
@@ -33,35 +70,9 @@ class Graphics():
 		self.screen.blit(self.bckg,(0,0))
 		#pygame.display.flip()
 
-	def killWindow(self):
-		pygame.quit()
+	def generalDisplayUpdate(self):
+		pygame.display.flip()
 
-	"""
-	def drawGrid(self):
-		for x in range(1,40):
-			pygame.draw.line(self.screen,[255,255,255],(x*self.screen_l/40,0),(x*self.screen_l/40,self.screen_h))
-		for y in range(1,30):
-			pygame.draw.line(self.screen,[255,255,255],(0,y*self.screen_h/30),(self.screen_l,y*self.screen_h/30))
-		pygame.display.flip()"""
-
-	def drawFlowerPot(self,x,y):
-		pygame.draw.circle(self.screen,[200,20,50],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],7,0)
-		pygame.draw.circle(self.screen,[0,200,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],5,0)
-		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],2,0)
-		pygame.display.update()
-
-	def drawCircle(self,x,y):
-		pygame.draw.circle(self.screen,[255,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
-		pygame.display.update()
-
-	def destroyCircle(self,x,y):
-		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
-		pygame.display.update()
-
-	def drawActivatable(element):
-			img = pygame.image.load(element.imageAdress).convert()
-			#img_rect = img.get_rect()
-			screen.blit(img,element.position)
 
 	def getKeys(self):
 		#no parameters
