@@ -33,4 +33,4 @@ class Player():
 			elif "L" in self.keys and self.position[0] > 0:
 				self.position[0] -=1
 			self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
-			#self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
+			self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])

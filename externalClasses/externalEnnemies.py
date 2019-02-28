@@ -30,7 +30,7 @@ class Ennemies():
 			elif self.position[1]==20 and self.position[0]!=15:
 				self.position[0]-=1
 			self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
-			#self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
+			self.graphicHandlerObject.destroyCircle(self.positionPrec[0],self.positionPrec[1])
 
 	def followPlayer(self,other):
 		if not self.stun and self.triggered:

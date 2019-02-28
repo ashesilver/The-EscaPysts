@@ -73,7 +73,7 @@ class Core():
 						play = True
 						static = False
 						# self.levelHandlerObject.test()
-					self.graphicHandlerObject.backgroundUpdate()
+					#self.graphicHandlerObject.backgroundUpdate()
 					self.playerHandlerObject.keys = self.keys[:]
 					self.ennemiesHandlerObject.walk()
 					self.playerHandlerObject.move_player()

@@ -44,8 +44,14 @@ class Graphics():
 			pygame.draw.line(self.screen,[255,255,255],(0,y*self.screen_h/30),(self.screen_l,y*self.screen_h/30))
 		pygame.display.flip()"""
 
+	def drawFlowerPot(self,x,y):
+		pygame.draw.circle(self.screen,[200,20,50],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],7,0)
+		pygame.draw.circle(self.screen,[0,200,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],5,0)
+		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],2,0)
+		pygame.display.update()
+
 	def drawCircle(self,x,y):
-		pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
+		pygame.draw.circle(self.screen,[255,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(30*2)+5)],4,0)
 		pygame.display.update()
 
 	def destroyCircle(self,x,y):

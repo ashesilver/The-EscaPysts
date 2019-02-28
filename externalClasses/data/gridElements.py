@@ -3,25 +3,25 @@
 
 var = {
 	'lvl0':{"gate":{					#### gates are doors to go from teem to another in same level
-				'image':'./gate.jpg', 		   #### image Adresse 
+				'image':'images/gate.jpg', 		   #### image Adresse 
 				'position':[{},{},{}],
 				#'size':["L","H"],
 				'destination':[{},{},{}]  	  #### which room to go 
 				},
-			"hideout":{
-			  	'image':'Image Adresse',
+			"flowerPot":{
+			  	'image':'images/flowerPot.jpg',
 			  	'position':[{},{},{}],
 			  	#'size':['L','H'],
 			  	'destination':[{},{},{}]
 				},
 			"path":{
-				'image':'adress',
+				'image':'images/ground.jpg',
 				'position' : [{},{},{}],
 				#'size' : ['l','h'],
 				'destination' : [{},{},{}]
 				},
 			"wall":{
-				'image':'adress',
+				'image':'images/wall.jpg',
 				'position' : [{},{},{}],
 				#'size' : ['l','h'],
 				'destination' : [{},{},{}]
