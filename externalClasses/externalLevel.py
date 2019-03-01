@@ -24,16 +24,18 @@ class Level():
 		self.graphicHandlerObject.displayBackgroundUpdate("./images/lvl"+str(self.id)+".jpg")
 		#self.graphicHandlerObject.drawGrid()
 
-
-		[self.elements.remove([]) for x in self.elements ]
+		self.elements = [x for x in self.elements if x != []]
+		print(self.elements)
 		for x in self.elements :
-			if x == [] :
-				self.elements.remove([])
-			else :
-				print("trying to display "+x[0].type+ " at : "+ str(x[0].position))
-				#self.graphicHandlerObject.displayActivatable(x[0])
-				x[0].update(self.graphicHandlerObject)
-				print("sucessfully displayed "+x[0].type+ " at : "+ str(x[0].position))
+			for y in x :
+				try :
+					print("trying to display "+y.type+ " at : "+ str(y.position))
+					#self.graphicHandlerObject.displayActivatable(x[0])
+					y.update(self.graphicHandlerObject)
+				except :
+					print("denied : "+ str(y))
+				else :
+					print("sucessfully displayed "+y.type+ " at : "+ str(y.position))
 
 	def update(self):
 		[x[0].update(self.graphicHandlerObject) for x in self.elements]
