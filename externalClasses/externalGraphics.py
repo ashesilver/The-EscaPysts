@@ -57,8 +57,12 @@ class Graphics():
 
 	
 	def displayActivatable(self,element):
-		img = pygame.image.load(element.imageAdress).convert()
-		img = pygame.transform.scale(img, [ int(x*self.screen_h/80) for x in element.size] )
+		if element.image == None:
+			img = pygame.image.load(element.imageAdress).convert()
+			img = pygame.transform.scale(img, [ int(x*self.screen_h/80) for x in element.size] )
+			element.image = img
+		else :
+			img = element.image
 		self.screen.blit(img, [ int(x*self.screen_h/80) for x in element.position])
 		#pygame.display.update()
 		

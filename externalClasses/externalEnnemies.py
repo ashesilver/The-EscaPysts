@@ -16,6 +16,7 @@ class Ennemies():
 		self.vision = [[0][0]]
 		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
 		self.imageAdress = "./images/ennemy.jpg"
+		self.image = None
 		self.walkTick = 0
 		self.vision = [[],[]]
 

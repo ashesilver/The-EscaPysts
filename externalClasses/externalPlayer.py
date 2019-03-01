@@ -15,14 +15,16 @@ class Player():
 
 		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
 		self.imageAdress = "./images/player.jpg"
+		self.image = None
 
 
 	def hideout(self):
 		count = 0
 		for element in self.levelHandlerObject.elements:
-			if element[0].position == self.position and element[0].hideable: #and not self.spotted
-				count=1
-				self.hidden = True
+			for x in element:
+				if x.position == self.position and x.hideable: #and not self.spotted
+					count=1
+					self.hidden = True
 		if not count :
 			self.hidden = False
 

@@ -10,7 +10,7 @@ class Activatable():
 		self.position = [position['x'],position['y']]
 		self.destination = destination
 		self.hideable = obj['hideable']
-
+		self.image = None
 		#print(self.type)
 
 	def update(self, graphicHandlerObject):
