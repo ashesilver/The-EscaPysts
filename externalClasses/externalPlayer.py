@@ -31,6 +31,7 @@ class Player():
 
 	def move_player(self):
 		self.walkTick += 1
+		self.walkLock = []
 		if not self.walkTick%4 :
 			self.positionPrec = self.position[:]
 			if "U" in self.keys and self.position[1] > 0 :
