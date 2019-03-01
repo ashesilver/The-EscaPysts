@@ -11,17 +11,21 @@ class Player():
 		self.positionPrec = []
 		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
 		self.walkTick = 0
+		self.hidden = False
 
 		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
 		self.imageAdress = "./images/player.jpg"
 
 
-	def hidden(self,other):
-		is_hidden = False
-		for element in gameplayElements.var["lvl"+str(level.id).hideout.positions]:
-			if element == other.position:
-				is_hidden = True
-		return is_hidden
+	def hideout(self):
+		count = 0
+		for element in self.levelHandlerObject.elements:
+			if element[0].position == self.position and element[0].hideable: #and not self.spotted
+				count=1
+				self.hidden = True
+		if not count :
+			self.hidden = False
+
 
 	def move_player(self):
 		self.walkTick += 1
@@ -38,4 +42,5 @@ class Player():
 
 	def update(self):
 		self.move_player()
+		self.hideout()
 		self.graphicHandlerObject.displayActivatable(self)
