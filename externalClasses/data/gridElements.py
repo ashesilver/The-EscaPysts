@@ -26,7 +26,7 @@ var = {
 			"wall":{
 				'image':'images/wall.png',
 				'position' : [{'x':20,'y':30},{'x':45,'y':65},{'x':10,'y':45}],
-				'size' : [1,1],
+				'size' : [2,2],
 				'destination' : [{},{},{}],
 				'hideable':False
 				}
