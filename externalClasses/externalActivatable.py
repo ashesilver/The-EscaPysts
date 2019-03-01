@@ -9,6 +9,7 @@ class Activatable():
 		self.size = obj['size']
 		self.position = [position['x'],position['y']]
 		self.destination = destination
+		self.hideable = obj['hideable']
 
 		#print(self.type)
 
