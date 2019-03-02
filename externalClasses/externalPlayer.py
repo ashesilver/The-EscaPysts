@@ -13,6 +13,9 @@ class Player():
 		self.walkTick = 0
 		self.hidden = False
 
+		self.walkLock =[]
+		self.lock()
+		
 		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
 		self.imageAdress = "./images/player.jpg"
 		self.image = None
@@ -28,10 +31,19 @@ class Player():
 		if not count :
 			self.hidden = False
 
+	def lock(self):
+		for y in self.levelHandlerObject.elements :
+			if y[0].type=="wall" :
+				x=y[:]
+
+		for e in x :
+			for xcord in range(0,e.size[0]):
+				for ycord in range(0,e.size[1]):
+					self.walkLock.append([xcord+e.position[0],ycord+e.position[1]])
+		print(self.walkLock)
 
 	def move_player(self):
 		self.walkTick += 1
-		self.walkLock = []
 		if not self.walkTick%4 :
 			self.positionPrec = self.position[:]
 			if "U" in self.keys and self.position[1] > 0 :
@@ -42,6 +54,8 @@ class Player():
 				self.position[0] +=1
 			elif "L" in self.keys and self.position[0] > 0:
 				self.position[0] -=1
+			if self.position in self.walkLock :
+				self.position = self.positionPrec[:]
 
 	def update(self):
 		self.move_player()

@@ -24,7 +24,6 @@ class Level():
 		self.graphicHandlerObject.displayBackgroundUpdate("./images/lvl"+str(self.id)+".jpg")
 
 		self.elements = [x for x in self.elements if x != []]
-		print(self.elements)
 		for x in self.elements :
 			for y in x :
 					#print("trying to display "+y.type+ " at : "+ str(y.position))

@@ -18,7 +18,7 @@ var = {
 			  					],
 			  	'hideable':True
 				},
-			"path":{
+			"noName":{
 				'image':'images/ground.jpg',
 				'position' : [],
 				'size' : ['l','h'],
