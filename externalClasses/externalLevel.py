@@ -19,7 +19,7 @@ class Level():
 		tmp = gameplayElements.var["lvl"+str(self.id)]
 		self.elements = [ [ Activatable(x,tmp[x],tmp[x]['position'][i],tmp[x]['destination'][i]) for i in range(0,len(tmp[x]['position'])) ] for x in tmp ] #stores in 1 attribute/self.gridElements/ all grid elements in gridElements.py (external file)
 		self.graphicHandlerObject = arg
-		self.grid = [ [y for y in range (0,40*2)] for x in range (0,30*2) ] #bigger grid (*2)
+		self.grid = [ [y for y in range (0,40*2)] for x in range (0,40*2) ] #bigger grid (*2)
 
 		self.graphicHandlerObject.displayBackgroundUpdate("./images/lvl"+str(self.id)+".jpg")
 
