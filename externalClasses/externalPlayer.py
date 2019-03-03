@@ -23,11 +23,13 @@ class Player():
 
 	def hideout(self):
 		count = 0
-		for element in self.levelHandlerObject.elements:
-			for x in element:
-				if x.position == self.position and x.hideable: #and not self.spotted
-					count=1
-					self.hidden = True
+		for y in self.levelHandlerObject.elements :
+			if y[0].hideable :
+				tmp=y[:]
+		for x in tmp :
+			if x.position == self.position: #and not self.spotted
+				count=1
+				self.hidden = True
 		if not count :
 			self.hidden = False
 
@@ -40,7 +42,6 @@ class Player():
 			for xcord in range(0,e.size[0]):
 				for ycord in range(0,e.size[1]):
 					self.walkLock.append([xcord+e.position[0],ycord+e.position[1]])
-		print(self.walkLock)
 
 	def move_player(self):
 		self.walkTick += 1
@@ -60,4 +61,5 @@ class Player():
 	def update(self):
 		self.move_player()
 		self.hideout()
+		print(self.hidden)
 		self.graphicHandlerObject.displayActivatable(self)
