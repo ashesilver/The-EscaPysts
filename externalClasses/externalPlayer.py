@@ -9,7 +9,6 @@ class Player():
 		self.levelHandlerObject = lvl
 		self.position = [10,20]
 		self.positionPrec = []
-		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
 		self.walkTick = 0
 		self.hidden = False
 
@@ -23,10 +22,7 @@ class Player():
 
 	def hideout(self):
 		count = 0
-		for y in self.levelHandlerObject.elements :
-			if y[0].hideable :
-				tmp=y[:]
-		for x in tmp :
+		for x in self.hideouts :
 			if x.position == self.position: #and not self.spotted
 				count=1
 				self.hidden = True
@@ -37,6 +33,8 @@ class Player():
 		for y in self.levelHandlerObject.elements :
 			if y[0].type=="wall" :
 				x=y[:]
+			elif y[0].hideable :
+				self.hideouts=y[:]
 
 		for e in x :
 			for xcord in range(0,e.size[0]):
@@ -45,7 +43,7 @@ class Player():
 
 	def move_player(self):
 		self.walkTick += 1
-		if not self.walkTick%4 :
+		if not self.walkTick%5 :
 			self.positionPrec = self.position[:]
 			if "U" in self.keys and self.position[1] > 0 :
 				self.position[1] -= 1
@@ -57,9 +55,9 @@ class Player():
 				self.position[0] -=1
 			if self.position in self.walkLock :
 				self.position = self.positionPrec[:]
+			self.walkTick = 0
 
 	def update(self):
 		self.move_player()
 		self.hideout()
-		print(self.hidden)
 		self.graphicHandlerObject.displayActivatable(self)

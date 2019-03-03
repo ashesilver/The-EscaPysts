@@ -11,7 +11,6 @@ class Ennemies():
 		self.position = [20,15]
 		self.positionPrec= [0,0]
 		self.stun = False
-		self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
 		self.direction = "up"
 		self.vision = [[0][0]]
 		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
@@ -22,7 +21,7 @@ class Ennemies():
 
 	def walk(self):
 		self.walkTick += 1
-		if not self.stun and not self.walkTick%4: #walk activates each %x frames
+		if not self.stun and not self.walkTick%6: #walk activates each %x frames
 			self.positionPrec = self.position[:]
 			if self.position[0]==20 and self.position[1]!=6: #up
 				self.direction = "up"  
@@ -51,6 +50,7 @@ class Ennemies():
 				self.vision = [[],[]]
 				for i in range(5):
 					self.vision[0].append(self.position[0]-i)
+			self.walkTick = 0
 
 	def followPlayer(self,other):
 		if self.playerHandlerObject.position[0] in self.vision[0] or self.playerHandlerObject.position[1] in self.vision[1]:

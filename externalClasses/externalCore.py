@@ -4,6 +4,7 @@
 from externalClasses.externalGraphics import *
 from externalClasses.externalLevel import *
 from externalClasses.externalPlayer import *
+from externalClasses.externalMenu import *
 
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
@@ -15,14 +16,6 @@ class Core():
 		self.fpsLimit = FPS_limit
 		self.quit = False
 
-	"""
-	def playableInLoop(self):
-		run = True
-		while run:
-			if type(self.keys) == bool:
-				self.quit = True
-			run = not(self.quit)
-	"""
 			
 	def keyLock(self):
 		for x in self.keys:
@@ -48,7 +41,6 @@ class Core():
 			Core.clock.tick(self.fpsLimit) #defines clock's max speed by (1/FPS_limit) ms per frame
 			self.keys = self.graphicHandlerObject.getKeys()
 
-			#temporaryKeyLock = copy.deepcopy(self.keys)
 			try :
 				temporaryKeyLock = self.keys[:]
 				self.keyLock()
@@ -64,6 +56,9 @@ class Core():
 				if "esc" in self.keys or options:
 					if "esc" in self.keys:
 						options = not(options)
+				####### main menu
+				elif static:
+					pass
 				####### level trigger
 				if (("ENTER" in self.keys or "Enter" in self.keys) or play) and not options:
 					if not play:
@@ -73,6 +68,8 @@ class Core():
 						play = True
 						static = False
 						# self.levelHandlerObject.test()
+
+					####### in-level actions :
 					self.graphicHandlerObject.displayBackgroundUpdate()
 					self.playerHandlerObject.keys = self.keys[:]
 					self.ennemiesHandlerObject.update()
@@ -80,12 +77,10 @@ class Core():
 					self.levelHandlerObject.update()
 
 					
-					####### in-level actions :
+					
 					
 		
-				####### main menu
-				if static and not options:
-					pass
+
 
 
 				####### endLoop actions
