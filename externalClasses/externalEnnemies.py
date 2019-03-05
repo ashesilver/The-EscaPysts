@@ -12,7 +12,6 @@ class Ennemies():
 		self.position = [20,15]
 		self.positionPrec= [0,0]
 		self.stun = False
-		#self.graphicHandlerObject.drawCircle(self.position[0],self.position[1])
 		self.direction = "up"
 		self.vision = [[],[]]
 		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
