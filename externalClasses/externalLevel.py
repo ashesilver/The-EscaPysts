@@ -37,7 +37,7 @@ class Level():
 					y.update(self.graphicHandlerObject)				
 					#print("sucessfully displayed "+y.type+ " at : "+ str(y.position))
 
-		self.graphicHandlerObject.generalDisplayUpdate()
+
 
 	def memoryPath(self):
 		self.savefile = "save.txt"

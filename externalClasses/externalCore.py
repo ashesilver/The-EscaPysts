@@ -16,6 +16,8 @@ class Core():
 		self.fpsLimit = FPS_limit
 		self.quit = False
 
+		self.mainMenuHandlerObject = Menu(self.graphicHandlerObject)
+
 			
 	def keyLock(self):
 		for x in self.keys:
@@ -56,17 +58,20 @@ class Core():
 				if "esc" in self.keys or options:
 					if "esc" in self.keys:
 						options = not(options)
+
 				####### main menu
 				elif static:
-					pass
+					self.mainMenuHandlerObject.update()
+
 				####### level trigger
-				if (("ENTER" in self.keys or "Enter" in self.keys) or play) and not options:
+				if (("ENTER" in self.keys or "Enter" in self.keys or self.mainMenuHandlerObject.buttonPressed[0]) or play) and not options:
 					if not play:
 						self.levelHandlerObject = Level(self.graphicHandlerObject)
 						self.playerHandlerObject = Player(self.graphicHandlerObject,self.levelHandlerObject,self.keys)
 						self.ennemiesHandlerObject = Ennemies(self.graphicHandlerObject,self.levelHandlerObject,self.playerHandlerObject)
 						play = True
 						static = False
+						self.mainMenuHandlerObject.buttonPressed[0] = False
 						# self.levelHandlerObject.test()
 
 					####### in-level actions :
@@ -76,16 +81,10 @@ class Core():
 					self.playerHandlerObject.update()
 					self.levelHandlerObject.update()
 
-					
-					
-					
-		
-
-
 
 				####### endLoop actions
 				self.keysRegister = temporaryKeyLock[:]
+				self.graphicHandlerObject.generalDisplayUpdate()
 
 				####### tests zone
-
 				

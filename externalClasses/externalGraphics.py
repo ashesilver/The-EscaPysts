@@ -25,6 +25,11 @@ class Graphics():
 
 		Graphics.screen = initialize(self.screen_l,self.screen_h)
 
+		self.leftClick = 0
+		self.rightClick = 0
+
+		self.buttonImage = None
+
 	def killWindow(self):
 		pygame.quit()
 
@@ -46,6 +51,13 @@ class Graphics():
 			self.bckg = pygame.transform.scale(self.bckg, (self.screen_l,self.screen_h))
 
 		self.screen.blit(self.bckg,(0,0))
+
+	def displayButton(self,imageAdress,coordinates):
+		if self.buttonImage == None :
+			self.buttonImage = pygame.image.load(imageAdress).convert()
+			self.buttonImage = pygame.transform.scale(self.buttonImage, (int(self.screen_l*(coordinates[2]/800)),int(self.screen_h*(coordinates[3]/800))) )
+		self.screen.blit(self.buttonImage, [coordinates[0],coordinates[1]])
+		
 
 	def generalDisplayUpdate(self):
 		pygame.display.flip()
@@ -76,9 +88,14 @@ class Graphics():
 		
 		return keys_input
 
+	def getMouse(self):
+		self.leftClick = pygame.mouse.get_pressed()[0]
+		self.rightClick = pygame.mouse.get_pressed()[2]
+		return pygame.mouse.get_pos()
+
 
 """
-#DRAW METHODS   ----- > not used anymore
+#DRAW METHODS   ----->    not used anymore
 
 def drawGrid(self):
 	for x in range(1,81):
