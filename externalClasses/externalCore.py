@@ -9,7 +9,7 @@ from externalClasses.externalMenu import *
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
 
-	graphicHandlerObject = Graphics()
+	graphicHandlerObject = Graphics(300,300)
 	clock = pygame.time.Clock()
 	
 	def __init__(self, FPS_limit=240):

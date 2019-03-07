@@ -55,8 +55,8 @@ class Graphics():
 	def displayButton(self,imageAdress,coordinates):
 		if self.buttonImage == None :
 			self.buttonImage = pygame.image.load(imageAdress).convert()
-			self.buttonImage = pygame.transform.scale(self.buttonImage, (int(self.screen_l*(coordinates[2]/800)),int(self.screen_h*(coordinates[3]/800))) )
-		self.screen.blit(self.buttonImage, [coordinates[0],coordinates[1]])
+			self.buttonImage = pygame.transform.scale(self.buttonImage, (int(coordinates[2]*(self.screen_l/800)),int(coordinates[3]*(self.screen_h/800))) )
+		self.screen.blit(self.buttonImage, [int(coordinates[0]*(self.screen_l/800)),int(coordinates[1]*(self.screen_h/800))])
 		
 
 	def generalDisplayUpdate(self):
