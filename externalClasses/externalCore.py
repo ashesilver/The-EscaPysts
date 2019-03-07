@@ -9,7 +9,7 @@ from externalClasses.externalMenu import *
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
 
-	graphicHandlerObject = Graphics(300,300)
+	graphicHandlerObject = Graphics(1000,1000)
 	clock = pygame.time.Clock()
 	
 	def __init__(self, FPS_limit=240):
@@ -68,7 +68,10 @@ class Core():
 					if not play:
 						self.levelHandlerObject = Level(self.graphicHandlerObject)
 						self.playerHandlerObject = Player(self.graphicHandlerObject,self.levelHandlerObject,self.keys)
-						self.ennemiesHandlerObject = Ennemies(self.graphicHandlerObject,self.levelHandlerObject,self.playerHandlerObject)
+						for x in self.levelHandlerObject.ennemies :
+							x.playerHandlerObject = self.playerHandlerObject
+						self.levelHandlerObject.playerHandlerObject = self.playerHandlerObject
+						self.levelHandlerObject.matrix()
 						play = True
 						static = False
 						self.mainMenuHandlerObject.buttonPressed[0] = False
@@ -77,7 +80,6 @@ class Core():
 					####### in-level actions :
 					self.graphicHandlerObject.displayBackgroundUpdate()
 					self.playerHandlerObject.keys = self.keys[:]
-					self.ennemiesHandlerObject.update()
 					self.playerHandlerObject.update()
 					self.levelHandlerObject.update()
 

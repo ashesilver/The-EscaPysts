@@ -30,12 +30,18 @@ class Graphics():
 
 		self.buttonImage = None
 
+		self.yellowSquare = pygame.image.load("images/sq.png").convert()
+		self.yellowSquare = pygame.transform.scale(self.yellowSquare, (int(self.screen_l/80),int(self.screen_h/80)) )
+
 	def killWindow(self):
 		pygame.quit()
 
 	#DISPLAY METHODS
 
 	
+	def displaySquare(self,coordinates):
+		self.screen.blit(self.yellowSquare, [ x*(self.screen_h/80) for x in coordinates])
+
 	def displayActivatable(self,element):
 		if element.image == None:
 			img = pygame.image.load(element.imageAdress).convert()
@@ -56,7 +62,7 @@ class Graphics():
 		if self.buttonImage == None :
 			self.buttonImage = pygame.image.load(imageAdress).convert()
 			self.buttonImage = pygame.transform.scale(self.buttonImage, (int(coordinates[2]*(self.screen_l/800)),int(coordinates[3]*(self.screen_h/800))) )
-		self.screen.blit(self.buttonImage, [int(coordinates[0]*(self.screen_l/800)),int(coordinates[1]*(self.screen_h/800))])
+		self.screen.blit(self.buttonImage, [int(coordinates[0]*(self.screen_l/800)),int(coordinates[1]*(self.screen_h/800))	])
 		
 
 	def generalDisplayUpdate(self):
