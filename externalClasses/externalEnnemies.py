@@ -38,8 +38,6 @@ class Ennemies():
 		self.frames +=1
 		if not self.stun and not self.frames%8 : #walk activates each %x frames
 			
-			self.positionPrec = self.position[:]
-			
 			self.walkTick_1 += 1
 			if self.walkTick_1 > len(self.pattern[self.walkTick])-1 :
 				self.walkTick_1 = 0
@@ -104,6 +102,7 @@ class Ennemies():
 
 
 	def followPlayer(self):
+		"""
 		if not self.stun and not self.playerHandlerObject.hidden:
 			a = randint(0,1)
 			if (a == 0 and self.playerHandlerObject.position[0]!=self.position[0]) or (a == 1 and self.playerHandlerObject.position[1]!=self.position[1]) :
@@ -118,19 +117,28 @@ class Ennemies():
 					self.position[1] -=1
 
 			if self.playerHandlerObject.position[0] == self.position[0] and self.playerHandlerObject.position[1]==self.position[1]:
-				print("jte bez")
-		if not self.stun and self.playerHandlerObject.hidden:
-			search()
+				print("jte bez")"""
+		pass
 			
 	def search(self):
 		if not self.stun and self.playerHandlerObject.hidden:
 			pass
 
 	def update(self):
+		self.positionPrec = self.position[:]
 		if self.playerHandlerObject.position in self.vision:
-			self.followPlayer()
-		else:
+			self.lastSeenPosition = self.playerHandlerObject.position
+			self.triggered = True
+			for x in self.vision :
+				pass
+		if not self.triggered: # and self.position in self.pattern :
 			self.walk()
+		#elif not self.triggered :
+		elif self.playerHandlerObject.hidden :
+			self.search()
+		else :
+			self.followPlayer()
+			
 		self.updateVision()
 
 		"""
