@@ -27,11 +27,16 @@ class Ennemies():
 		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
 		self.imageAdress = "./images/ennemy.jpg"
 		self.image = None
-		self.walkTick = 0
-		self.walkTick_1 = 0
+		self.walkTick,self.walkTick_1,self.walkTick_2,self.walkTick_3,self.walkTick_4 = 0,0,0,0,0
 		self.path = []
+		self.lost = False
 
 		self.frames = 0
+		self.lostFrames = 0
+		self.triggered,self.searching = False,False
+
+		self.backPath =[]
+		self.overwriteVisionMethod = False
 
 
 	def walk(self):
@@ -103,8 +108,8 @@ class Ennemies():
 
 	def followPlayer(self):
 		"""
-		if not self.stun and not self.playerHandlerObject.hidden:
-			a = randint(0,1)
+		if not self.stun :
+			a = randchoice([0,1])
 			if (a == 0 and self.playerHandlerObject.position[0]!=self.position[0]) or (a == 1 and self.playerHandlerObject.position[1]!=self.position[1]) :
 				if self.position[0] < self.playerHandlerObject.position[0]:
 					self.position[0] +=1
@@ -118,28 +123,118 @@ class Ennemies():
 
 			if self.playerHandlerObject.position[0] == self.position[0] and self.playerHandlerObject.position[1]==self.position[1]:
 				print("jte bez")"""
-		pass
-			
+		self.frames +=1
+		if not self.stun and not self.frames%6:
+
+			self.walkTick_2 += 1
+			if self.walkTick_2 > len(self.path[self.walkTick_3])-1 :
+				self.walkTick_2 = 0
+				self.walkTick_3 += 1
+			if self.walkTick_3 > len(self.path)-1 :
+				self.walkTick_3 = 0
+
+			self.position = self.path[self.walkTick_3][self.walkTick_2][:]
+			self.backPath.append(self.position)
+
+		if self.position == self.lastSeenPosition :
+			self.searching = True
+			self.backPath = self.backPath[::-1]
+
+							
 	def search(self):
-		if not self.stun and self.playerHandlerObject.hidden:
-			pass
+		self.frames +=1
+		if not self.stun and not self.frames%6:
+			self.position = self.positionPrec[:]
+			self.direction = choice(['up','down','left','right'])
+			if self.direction == "left" :
+				self.vision = [
+				[self.position[0]-1,self.position[1]],
+				[self.position[0]-2,self.position[1]],
+				[self.position[0]-3,self.position[1]],
+				[self.position[0]-4,self.position[1]],
+				[self.position[0]-5,self.position[1]],
+				[self.position[0]-4,self.position[1]+1],
+				[self.position[0]-5,self.position[1]+1],
+				[self.position[0]-4,self.position[1]-1],
+				[self.position[0]-5,self.position[1]-1]]
+
+			elif self.direction == "right":
+				self.vision = [
+				[self.position[0]+1,self.position[1]],
+				[self.position[0]+2,self.position[1]],
+				[self.position[0]+3,self.position[1]],
+				[self.position[0]+4,self.position[1]],
+				[self.position[0]+5,self.position[1]],
+				[self.position[0]+4,self.position[1]+1],
+				[self.position[0]+5,self.position[1]+1],
+				[self.position[0]+4,self.position[1]-1],
+				[self.position[0]+5,self.position[1]-1]]
+
+			elif self.direction == "up" :
+				self.vision = [
+				[self.position[0],self.position[1]-1],
+				[self.position[0],self.position[1]-2],
+				[self.position[0],self.position[1]-3],
+				[self.position[0],self.position[1]-4],
+				[self.position[0],self.position[1]-5],
+				[self.position[0]+1,self.position[1]-4],
+				[self.position[0]+1,self.position[1]-5],
+				[self.position[0]-1,self.position[1]-4],
+				[self.position[0]-1,self.position[1]-5]]
+
+			elif self.direction == "down" :
+				self.vision = [
+				[self.position[0],self.position[1]+1],
+				[self.position[0],self.position[1]+2],
+				[self.position[0],self.position[1]+3],
+				[self.position[0],self.position[1]+4],
+				[self.position[0],self.position[1]+5],
+				[self.position[0]+1,self.position[1]+4],
+				[self.position[0]+1,self.position[1]+5],
+				[self.position[0]-1,self.position[1]+4],
+				[self.position[0]-1,self.position[1]+5]]
+
+			#self.backPath.append(self.position)
 
 	def update(self):
 		self.positionPrec = self.position[:]
 		if self.playerHandlerObject.position in self.vision:
 			self.lastSeenPosition = self.playerHandlerObject.position
 			self.triggered = True
-			for x in self.vision :
-				pass
-		if not self.triggered: # and self.position in self.pattern :
+			self.lostFrames,self.walkTick_2,self.walkTick_3 = 0,0,0
+			if self.direction == "up":
+				self.path = [[[self.position[0],-y] for y in range(-self.position[1],-self.lastSeenPosition[1])],[[self.lastSeenPosition[0],self.lastSeenPosition[1]]]]
+			elif self.direction == "right":
+				self.path = [[[x,self.position[1]] for x in range(self.position[0],self.lastSeenPosition[0])],[[self.lastSeenPosition[0],self.lastSeenPosition[1]]]]
+			elif self.direction == "down":
+				self.path = [[[self.position[0],y] for y in range(self.position[1],self.lastSeenPosition[1])],[[self.lastSeenPosition[0],self.lastSeenPosition[1]]]]
+			else :
+				self.path = [[[-x,self.position[1]] for x in range(-self.position[0],-self.lastSeenPosition[0])],[[self.lastSeenPosition[0],self.lastSeenPosition[1]]]]
+		if self.lostFrames > 11 :
+			self.triggered = False
+			self.walkTick_2,self.walkTick_3 = 0,0
+			self.lostFrames = 0
+			self.searching = False
+			self.lost = True
+			self.overwriteVisionMethod = False
+
+		if not self.triggered and self.lost and self.walkTick_4 <= len(self.backPath)-1:
+			self.position = self.backPath[self.walkTick_4][:]
+			self.walkTick_4 += 1
+		elif not self.triggered :
 			self.walk()
-		#elif not self.triggered :
-		elif self.playerHandlerObject.hidden :
+			self.lost = False
+			self.backPath = []
+			self.walkTick_4 = 0
+		elif self.playerHandlerObject.hidden or self.searching:
 			self.search()
+			self.lostFrames += 1
+			self.overwriteVisionMethod = True
 		else :
 			self.followPlayer()
-			
-		self.updateVision()
+		
+		if not self.overwriteVisionMethod :
+			self.updateVision()
 
 		"""
 		for x in self.vision:
