@@ -81,7 +81,7 @@ class Core():
 					self.graphicHandlerObject.displayBackgroundUpdate()
 					self.playerHandlerObject.keys = self.keys[:]
 					self.playerHandlerObject.update()
-					self.levelHandlerObject.update()
+					self.levelHandlerObject.update(self.fpsLimit)
 
 
 				####### endLoop actions

@@ -39,14 +39,14 @@ class Level():
 
 		self.intersectMatrix = [[]]
 
-	def update(self):
+	def update(self,fps):
 		for x in self.elements :
 			for y in x :
 					#print("trying to display "+y.type+ " at : "+ str(y.position))
 					y.update(self.graphicHandlerObject)				
 					#print("sucessfully displayed "+y.type+ " at : "+ str(y.position))
 		for x in self.ennemies :
-			x.update()
+			x.update(fps)
 
 
 

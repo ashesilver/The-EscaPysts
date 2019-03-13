@@ -29,7 +29,7 @@ class Ennemies():
 		self.image = None
 		self.walkTick,self.walkTick_1,self.walkTick_2,self.walkTick_3,self.walkTick_4 = 0,0,0,0,0
 		self.path = []
-		self.lost = False
+		self.lost = 0
 
 		self.frames = 0
 		self.lostFrames = 0
@@ -134,12 +134,12 @@ class Ennemies():
 				self.walkTick_3 = 0
 
 			self.position = self.path[self.walkTick_3][self.walkTick_2][:]
-			self.backPath.append(self.position)
-
-		if self.position == self.lastSeenPosition :
+			self.previousBP.append(self.position)
+		if self.position == self.lastSeenPosition:
 			self.searching = True
-			self.backPath = self.backPath[::-1]
 
+	def cancelVision(self):
+		pass
 							
 	def search(self):
 		self.frames +=1
@@ -196,11 +196,12 @@ class Ennemies():
 
 			#self.backPath.append(self.position)
 
-	def update(self):
+	def update(self,fps):
 		self.positionPrec = self.position[:]
 		if self.playerHandlerObject.position in self.vision:
-			self.lastSeenPosition = self.playerHandlerObject.position
+			self.lastSeenPosition = self.playerHandlerObject.position[:]
 			self.triggered = True
+			self.searching = False
 			self.lostFrames,self.walkTick_2,self.walkTick_3 = 0,0,0
 			if self.direction == "up":
 				self.path = [[[self.position[0],-y] for y in range(-self.position[1],-self.lastSeenPosition[1])],[[self.lastSeenPosition[0],self.lastSeenPosition[1]]]]
@@ -210,35 +211,45 @@ class Ennemies():
 				self.path = [[[self.position[0],y] for y in range(self.position[1],self.lastSeenPosition[1])],[[self.lastSeenPosition[0],self.lastSeenPosition[1]]]]
 			else :
 				self.path = [[[-x,self.position[1]] for x in range(-self.position[0],-self.lastSeenPosition[0])],[[self.lastSeenPosition[0],self.lastSeenPosition[1]]]]
-		if self.lostFrames > 11 :
+		if self.lostFrames > fps*2 :
 			self.triggered = False
 			self.walkTick_2,self.walkTick_3 = 0,0
 			self.lostFrames = 0
 			self.searching = False
-			self.lost = True
+			self.lost +=1
 			self.overwriteVisionMethod = False
+			self.backPath = self.previousBP[::-1]
+			tmp = [self.backPath[0]]
+			for i in range(1,len(self.backPath)):
+				if not self.backPath[i-1] == self.backPath[i] :
+					tmp.append(self.backPath[i])
+			self.backPath = tmp[:]
 
-		if not self.triggered and self.lost and self.walkTick_4 <= len(self.backPath)-1:
-			self.position = self.backPath[self.walkTick_4][:]
-			self.walkTick_4 += 1
+		if not self.triggered and self.lost > 0:
+			self.position = self.backPath[0][:]
+			print(self.backPath)
+			if len(self.backPath)-1 == 0:
+				self.lost = 0
+			else :
+				self.backPath.remove(self.backPath[0])
 		elif not self.triggered :
 			self.walk()
-			self.lost = False
 			self.backPath = []
 			self.walkTick_4 = 0
 		elif self.playerHandlerObject.hidden or self.searching:
 			self.search()
 			self.lostFrames += 1
-			self.overwriteVisionMethod = True
+			self.overwriteVisionMethod = True		
 		else :
 			self.followPlayer()
 		
 		if not self.overwriteVisionMethod :
 			self.updateVision()
+		self.cancelVision()
 
-		"""
+		
 		for x in self.vision:
-			self.graphicHandlerObject.displaySquare(x)"""
+			self.graphicHandlerObject.displaySquare(x)
 		self.graphicHandlerObject.displayActivatable(self)
 
 	def pathfinder(self):
