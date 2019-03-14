@@ -234,7 +234,7 @@ class Ennemies():
 					self.backPath.remove(self.backPath[0])
 		elif not self.triggered :
 			self.walk()
-			self.backPath = []
+			self.backPath,self.previousBP = [],[]
 			self.walkTick_4 = 0
 		elif self.playerHandlerObject.hidden or self.searching:
 			self.search()
