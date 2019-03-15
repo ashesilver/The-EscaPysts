@@ -107,23 +107,7 @@ class Ennemies():
 
 
 	def followPlayer(self):
-		"""
-		if not self.stun :
-			a = randchoice([0,1])
-			if (a == 0 and self.playerHandlerObject.position[0]!=self.position[0]) or (a == 1 and self.playerHandlerObject.position[1]!=self.position[1]) :
-				if self.position[0] < self.playerHandlerObject.position[0]:
-					self.position[0] +=1
-				else:
-					self.position[0] -=1
-			elif (a == 0 and self.playerHandlerObject.position[1]!=self.position[1]) or (a == 1 and self.playerHandlerObject.position[0]!=self.position[0]):
-				if self.position[1] < self.playerHandlerObject.position[1]:
-					self.position[1] +=1
-				else:
-					self.position[1] -=1
-
-			if self.playerHandlerObject.position[0] == self.position[0] and self.playerHandlerObject.position[1]==self.position[1]:
-				print("jte bez")"""
-		if not self.stun and not self.frames%6:
+		if not self.stun and not self.frames%10:
 
 			self.walkTick_2 += 1
 			if self.walkTick_2 > len(self.path[self.walkTick_3])-1 :
@@ -138,8 +122,38 @@ class Ennemies():
 			self.searching = True
 
 	def cancelVision(self):
-		pass
-							
+		for x in self.vision:
+			if x in self.playerHandlerObject.walkLock:
+				if self.direction == "left":
+					for i in range(0,len(self.vision)):
+						try :
+							if (self.vision[i][1] == x[1] or (self.vision[i][1] == x[1]+1 and not self.vision[i] in self.playerHandlerObject.walkLock) or (self.vision[i][1] == x[1]-1 and not self.vision[i] in self.playerHandlerObject.walkLock)) and self.vision[i][0] <= x[0]:
+								self.vision[i] = []
+						except :
+							pass
+				elif self.direction == "right":
+					for i in range(0,len(self.vision)):
+						try :
+							if (self.vision[i][1] == x[1] or (self.vision[i][1] == x[1]+1 and not self.vision[i] in self.playerHandlerObject.walkLock) or (self.vision[i][1] == x[1]-1 and not self.vision[i] in self.playerHandlerObject.walkLock)) and self.vision[i][0] >= x[0]:
+								self.vision[i] = []
+						except :
+							pass
+				elif self.direction == "up":
+					for i in range(0,len(self.vision)):
+						try :
+							if (self.vision[i][0] == x[0] or (self.vision[i][0] == x[0]+1 and not self.vision[i] in self.playerHandlerObject.walkLock) or (self.vision[i][0] == x[0]-1 and not self.vision[i] in self.playerHandlerObject.walkLock)) and self.vision[i][1] <= x[1]:
+								self.vision[i] = []
+						except :
+							pass
+				elif self.direction == "down":
+					for i in range(0,len(self.vision)):
+						try :
+							if (self.vision[i][0] == x[0] or (self.vision[i][0] == x[0]+1 and not self.vision[i] in self.playerHandlerObject.walkLock) or (self.vision[i][0] == x[0]-1 and not self.vision[i] in self.playerHandlerObject.walkLock)) and self.vision[i][1] >= x[1]:
+								self.vision[i] = []
+						except :
+							pass
+		self.vision = [x for x in self.vision if x != []]
+
 	def search(self):
 		if not self.stun and not self.frames%30:
 			self.position = self.positionPrec[:]
