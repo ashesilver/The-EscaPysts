@@ -27,8 +27,8 @@ class Level():
 		tmp = ennemiesPat.var["lvl"+str(self.id)]
 		self.ennemies= [ Ennemies(self.graphicHandlerObject,self,player,x) for x in tmp ]
 
-		
-		self.graphicHandlerObject.displayBackgroundUpdate("./images/lvl"+str(self.id)+".jpg")
+		self.imageAdress = "./images/lvl"+str(self.id)+".png"
+		self.graphicHandlerObject.displayBackgroundUpdate(self.imageAdress)
 
 		self.elements = [x for x in self.elements if x != []]
 		for x in self.elements :
