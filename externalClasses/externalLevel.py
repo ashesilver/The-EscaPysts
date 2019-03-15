@@ -97,9 +97,6 @@ class Level():
 
 		#print(self.intersectMatrix)
 
-
-
-
 	def save(self):
 		self.id += 1
 		fichier = open(self.savefile,"w")
