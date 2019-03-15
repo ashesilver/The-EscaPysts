@@ -51,7 +51,7 @@ class Level():
 
 
 	def memoryPath(self):
-		self.savefile = "save.txt"
+		self.savefile = "externalClasses/data/save.txt"
 
 		try :
 			fichier = open(self.savefile,"r")
