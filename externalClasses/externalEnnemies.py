@@ -37,10 +37,10 @@ class Ennemies():
 
 		self.backPath =[]
 		self.overwriteVisionMethod = False
+		self.previousBP = []
 
 
 	def walk(self):
-		self.frames +=1
 		if not self.stun and not self.frames%8 : #walk activates each %x frames
 			
 			self.walkTick_1 += 1
@@ -123,7 +123,6 @@ class Ennemies():
 
 			if self.playerHandlerObject.position[0] == self.position[0] and self.playerHandlerObject.position[1]==self.position[1]:
 				print("jte bez")"""
-		self.frames +=1
 		if not self.stun and not self.frames%6:
 
 			self.walkTick_2 += 1
@@ -142,8 +141,7 @@ class Ennemies():
 		pass
 							
 	def search(self):
-		self.frames +=1
-		if not self.stun and not self.frames%6:
+		if not self.stun and not self.frames%30:
 			self.position = self.positionPrec[:]
 			self.direction = choice(['up','down','left','right'])
 			if self.direction == "left" :
@@ -225,16 +223,18 @@ class Ennemies():
 					tmp.append(self.backPath[i])
 			self.backPath = tmp[:]
 
+		self.frames = 0 if self.frames > 1000000 else self.frames + 1
+
 		if not self.triggered and self.lost > 0:
-			self.position = self.backPath[0][:]
-			print(self.backPath)
-			if len(self.backPath)-1 == 0:
-				self.lost = 0
-			else :
-				self.backPath.remove(self.backPath[0])
+			if not self.frames%8 :
+				self.position = self.backPath[0][:]
+				if len(self.backPath)-1 == 0:
+					self.lost = 0
+				else :
+					self.backPath.remove(self.backPath[0])
 		elif not self.triggered :
 			self.walk()
-			self.backPath = []
+			self.backPath,self.previousBP = [],[]
 			self.walkTick_4 = 0
 		elif self.playerHandlerObject.hidden or self.searching:
 			self.search()
@@ -242,6 +242,7 @@ class Ennemies():
 			self.overwriteVisionMethod = True		
 		else :
 			self.followPlayer()
+			self.overwriteVisionMethod = False
 		
 		if not self.overwriteVisionMethod :
 			self.updateVision()
