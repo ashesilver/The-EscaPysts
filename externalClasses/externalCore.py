@@ -56,6 +56,9 @@ class Core():
 
 				####### options menu trigger
 				if "esc" in self.keys or options:
+					if not options :
+						self.optionsMenuHandlerObject = Menu(self.graphicHandlerObject)
+						self.optionsMenuHandlerObject.buttonPressed, self.optionsMenuHandlerObject.buttonCoords, self.optionsMenuHandlerObject.buttonImages = [],[],[]
 					if "esc" in self.keys:
 						options = not(options)
 
