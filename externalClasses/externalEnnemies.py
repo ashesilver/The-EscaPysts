@@ -262,9 +262,6 @@ class Ennemies():
 			self.updateVision()
 		self.cancelVision()
 
-		
-		for x in self.vision:
-			self.graphicHandlerObject.displaySquare(x)
 		self.graphicHandlerObject.displayActivatable(self)
 
 	def pathfinder(self):
