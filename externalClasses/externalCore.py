@@ -59,7 +59,14 @@ class Core():
 					if not options :
 						self.optionsMenuHandlerObject = Menu(self.graphicHandlerObject)
 						self.optionsMenuHandlerObject.buttonPressed, self.optionsMenuHandlerObject.buttonCoords, self.optionsMenuHandlerObject.buttonImages = [],[],[]
+						self.optionsMenuHandlerObject.backgroundAdress = "images/options.png"
+
+					self.optionsMenuHandlerObject.update()
+
+
 					if "esc" in self.keys:
+						if options and play:
+							self.graphicHandlerObject.displayBackgroundUpdate(self.levelHandlerObject.imageAdress)
 						options = not(options)
 
 				####### main menu
@@ -74,7 +81,7 @@ class Core():
 						for x in self.levelHandlerObject.ennemies :
 							x.playerHandlerObject = self.playerHandlerObject
 						self.levelHandlerObject.playerHandlerObject = self.playerHandlerObject
-						self.levelHandlerObject.matrix()
+						#self.levelHandlerObject.matrix()
 						play = True
 						static = False
 						self.mainMenuHandlerObject.buttonPressed[0] = False
