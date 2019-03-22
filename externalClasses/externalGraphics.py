@@ -98,29 +98,3 @@ class Graphics():
 		self.leftClick = pygame.mouse.get_pressed()[0]
 		self.rightClick = pygame.mouse.get_pressed()[2]
 		return pygame.mouse.get_pos()
-
-
-"""
-#DRAW METHODS   ----->    not used anymore
-
-def drawGrid(self):
-	for x in range(1,81):
-		pygame.draw.line(self.screen,[255,255,255],(x*self.screen_l/80,0),(x*self.screen_l/80,self.screen_h))
-	for y in range(1,81):
-		pygame.draw.line(self.screen,[255,255,255],(0,y*self.screen_h/80),(self.screen_l,y*self.screen_h/80))
-	#pygame.display.flip()
-
-def drawFlowerPot(self,x,y):
-	pygame.draw.circle(self.screen,[200,20,50],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(40*2)+5)],7,0)
-	pygame.draw.circle(self.screen,[0,200,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(40*2)+5)],5,0)
-	pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+5),int(y*self.screen_h/(40*2)+5)],2,0)
-	pygame.display.update()
-
-def drawCircle(self,x,y):
-	pygame.draw.circle(self.screen,[255,0,0],[int(x*self.screen_l/(40*2)+6),int(y*self.screen_h/(40*2)+5)],4,0)
-	#pygame.display.update()
-
-def destroyCircle(self,x,y):
-	pygame.draw.circle(self.screen,[0,0,0],[int(x*self.screen_l/(40*2)+6),int(y*self.screen_h/(40*2)+5)],4,0)
-	#pygame.display.update()
-"""
