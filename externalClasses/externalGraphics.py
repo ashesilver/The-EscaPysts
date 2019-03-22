@@ -32,8 +32,10 @@ class Graphics():
 
 		self.yellowSquare = pygame.image.load("images/sq.png").convert()
 		self.yellowSquare = pygame.transform.scale(self.yellowSquare, (int(self.screen_l/60),int(self.screen_h/60)) )
-		self.lvledoverride = pygame.image.load("images/wall.png").convert()
-		self.lvledoverride = pygame.transform.scale(self.lvledoverride, (int(self.screen_l/60),int(self.screen_h/60)) )
+		self.lvledoverride1 = pygame.image.load("images/wall.png").convert()
+		self.lvledoverride1 = pygame.transform.scale(self.lvledoverride1, (int(self.screen_l/60),int(self.screen_h/60)) )
+		self.lvledoverride2 = pygame.image.load("images/ennemy.jpg").convert()
+		self.lvledoverride2 = pygame.transform.scale(self.lvledoverride2, (int(self.screen_l/60),int(self.screen_h/60)) )
 
 	def killWindow(self):
 		pygame.quit()
@@ -42,8 +44,10 @@ class Graphics():
 
 	
 	def displaySquare(self,coordinates,override=None):
-		if override:
-			self.screen.blit(self.lvledoverride, [ int(x*(self.screen_h/60)) for x in coordinates])
+		if override==1:
+			self.screen.blit(self.lvledoverride1, [ int(x*(self.screen_h/60)) for x in coordinates])
+		elif override==2:
+			self.screen.blit(self.lvledoverride2, [ int(x*(self.screen_h/60)) for x in coordinates])
 		else :
 			self.screen.blit(self.yellowSquare, [ int(x*(self.screen_h/60)) for x in coordinates])
 
