@@ -32,6 +32,8 @@ class Graphics():
 
 		self.yellowSquare = pygame.image.load("images/sq.png").convert()
 		self.yellowSquare = pygame.transform.scale(self.yellowSquare, (int(self.screen_l/60),int(self.screen_h/60)) )
+		self.lvledoverride = pygame.image.load("images/wall.png").convert()
+		self.lvledoverride = pygame.transform.scale(self.lvledoverride, (int(self.screen_l/60),int(self.screen_h/60)) )
 
 	def killWindow(self):
 		pygame.quit()
@@ -39,8 +41,11 @@ class Graphics():
 	#DISPLAY METHODS
 
 	
-	def displaySquare(self,coordinates):
-		self.screen.blit(self.yellowSquare, [ int(x*(self.screen_h/60)) for x in coordinates])
+	def displaySquare(self,coordinates,override=None):
+		if override:
+			self.screen.blit(self.lvledoverride, [ int(x*(self.screen_h/60)) for x in coordinates])
+		else :
+			self.screen.blit(self.yellowSquare, [ int(x*(self.screen_h/60)) for x in coordinates])
 
 	def displayActivatable(self,element):
 		if element.image == None:
