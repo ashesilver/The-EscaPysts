@@ -107,7 +107,7 @@ class Ennemies():
 
 
 	def followPlayer(self):
-		if not self.stun and not self.frames%10:
+		if not self.stun and not self.frames%4:
 
 			self.walkTick_2 += 1
 			if self.walkTick_2 > len(self.path[self.walkTick_3])-1 :
@@ -262,6 +262,9 @@ class Ennemies():
 			self.updateVision()
 		self.cancelVision()
 
+
+		if self.position==self.playerHandlerObject.position:
+			self.playerHandlerObject.death = True
 		self.graphicHandlerObject.displayActivatable(self)
 
 	def pathfinder(self):
