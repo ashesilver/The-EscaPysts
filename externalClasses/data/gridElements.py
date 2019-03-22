@@ -11,11 +11,17 @@ var = {
 				},
 			"flowerPot":{
 			  	'image':'images/flowerPot.jpg',
-			  	'position' :	[{'x':35,'y':10}
-			  				],
+			  		'position' :	[{'x':35,'y':10},
+			  				{ 'x':36,'y':10},
+			  				{ 'x':35,'y':11},
+			  				{ 'x':36,'y':11}
+			  	],
 			  	'size':[1,1],
-			  	'destination':	[{'x':35,'y':10}
-			  					],
+			  	'destination':	[{'x':35,'y':10},
+			  			{ 'x':36,'y':10},
+			  			{ 'x':35,'y':11},
+			  			{ 'x':36,'y':11}
+			  	],
 			  	'hideable':True
 				},
 			"noName":{
