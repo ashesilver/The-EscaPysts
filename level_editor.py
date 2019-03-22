@@ -103,9 +103,10 @@ while not quit :
 
 			if gr.leftClick and not mousePos in Wsave["wall"]["position"]:
 				Wsave["wall"]["position"].append(mousePos)
-			
+				Wsave["wall"]["destination"].append(mousePos)
 			elif gr.rightClick and mousePos in Wsave["wall"]["position"]:
 				Wsave["wall"]["position"].remove(mousePos)
+				Wsave["wall"]["destination"].remove(mousePos)
 			
 			for x in Wsave["wall"]["position"] :
 				gr.displaySquare(x)
