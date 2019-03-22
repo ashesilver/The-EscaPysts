@@ -27,6 +27,7 @@ class Player():
 			if x.position == self.position: #and not self.spotted
 				count=1
 				self.hidden = True
+				self.walkTick = -10
 		if not count :
 			self.hidden = False
 
@@ -44,7 +45,7 @@ class Player():
 
 	def move_player(self):
 		self.walkTick += 1
-		if not self.walkTick%5 :
+		if not self.walkTick%5 and self.walkTick>0 :
 			self.positionPrec = self.position[:]
 			if "U" in self.keys and self.position[1] > 0 :
 				self.position[1] -= 1
