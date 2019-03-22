@@ -98,3 +98,9 @@ class Graphics():
 		self.leftClick = pygame.mouse.get_pressed()[0]
 		self.rightClick = pygame.mouse.get_pressed()[2]
 		return pygame.mouse.get_pos()
+
+	def drawGrid(self):
+		for x in range(1,61):
+			pygame.draw.line(self.screen,[125,125,125],(x*self.screen_l/60,0),(x*self.screen_l/60,self.screen_h))
+		for y in range(1,61):
+			pygame.draw.line(self.screen,[125,125,125],(0,y*self.screen_h/60),(self.screen_l,y*self.screen_h/60))
