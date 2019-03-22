@@ -1,7 +1,7 @@
 #!/bin/usr/python3
 # -*- coding:utf-8 -*-
 
-from externalClasses.externalGraphics import *
+from externalGraphics import *
 
 import os
 
@@ -154,3 +154,5 @@ while not quit :
 				
 		gr.generalDisplayUpdate()
 
+
+input("      press enter to kill this window")
