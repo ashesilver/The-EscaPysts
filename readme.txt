@@ -6,7 +6,6 @@ Memo - classes à créer:
 	*objet (énigmes)		   		   //done
 	*graphisme                         //done
 
-
 split class files system.
 
 
@@ -56,3 +55,4 @@ Activatable :
 	methodes :  
 		- links(self, other)
 		- activateObj()
+level_Editor.py  //in progress
