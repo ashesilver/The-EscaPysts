@@ -18,6 +18,7 @@ class Player():
 		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
 		self.imageAdress = "./images/player.jpg"
 		self.image = None
+		self.death = False
 
 
 	def hideout(self):
