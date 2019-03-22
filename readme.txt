@@ -11,11 +11,11 @@ split class files system.
 
 
 
-classe Core -> possède les touches ainsi que la boucle principale
+classe Core -> possède les touches ainsi que la boucle principale  
 
 
 système de grilles pour les niveaux (classe : level) //done
-	systeme de pièces (sidescroll)
+	systeme de pièces (sidescroll)  // bas les couilles
 	
 
 
@@ -25,34 +25,34 @@ Graphics : initialise la fenetre //done
 	
 Ennemis :
 	attributs :
-		- self.stun (booléen)
-		- self.pos (tuple : X,Y)
-		- self.triggered (booléen)
-		- self.playerObject (pas sur)
+		- self.stun (booléen)  //done
+		- self.pos (tuple : X,Y) //done
+		- self.triggered (booléen)  //done
+		- self.playerObject (pas sur)  //done
 	- methodes :
-		- walk()
-		- followPlayer()
-		- search()
-		- checkPlayer()
+		- walk()  //done
+		- followPlayer() //done
+		- search()  //done
+		- checkPlayer()  //done
 	- fichier : 
-		- ennemiesPatern.py
+		- ennemiesPatern.py  //done
 	
 Player :
 	méthodes :
 		
-		- hide()
+		- hide()  //done
 		
 	attributs :
 		
 Activatable :
 	fichiers :
-		- gridElements.py :
+		- gridElements.py : 
 			format des variables : dict
 			- "canHide"
 			- "type"
 			- "gate"   //sortir des pièces
 			
 			
-	methodes :
+	methodes :  
 		- links(self, other)
 		- activateObj()
