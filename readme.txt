@@ -1,4 +1,4 @@
-Memo - classes à créer:
+﻿Memo - classes à créer:
 	*principale (menu et appel niveau) //done
 	*niveau (génération)               //done
 	*ennemis                           //done
@@ -55,4 +55,9 @@ Activatable :
 	methodes :  
 		- links(self, other)
 		- activateObj()
-level_Editor.py  //in progress
+
+
+level_Editor.py  //done
+à executer sur windows à l'aide du .bat
+sur linux > aller dans un terminal > entrer la commande :
+python3 -u ./externalClasses/level_editor.py
