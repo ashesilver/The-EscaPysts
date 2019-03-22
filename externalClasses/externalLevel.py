@@ -48,8 +48,6 @@ class Level():
 		for x in self.ennemies :
 			x.update(fps)
 
-
-
 	def memoryPath(self):
 		self.savefile = "externalClasses/data/save.txt"
 

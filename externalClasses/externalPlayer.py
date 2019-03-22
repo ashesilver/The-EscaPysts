@@ -25,9 +25,10 @@ class Player():
 		count = 0
 		for x in self.hideouts :
 			if x.position == self.position: #and not self.spotted
+				if not self.hidden :
+					self.walkTick = -20
 				count=1
 				self.hidden = True
-				self.walkTick = -10
 		if not count :
 			self.hidden = False
 

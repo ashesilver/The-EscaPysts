@@ -123,7 +123,7 @@ class Ennemies():
 
 	def cancelVision(self):
 		for x in self.vision:
-			if x in self.playerHandlerObject.walkLock:
+			if x in self.playerHandlerObject.walkLock or x in self.playerHandlerObject.hideouts:
 				if self.direction == "left":
 					for i in range(0,len(self.vision)):
 						try :
