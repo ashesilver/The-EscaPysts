@@ -28,7 +28,13 @@ class Core():
 				if x != "U" and x !="D" and x !="L" and x !="R":
 					self.keysRegister.append(x)
 				
-
+	def startLevel(self):
+		self.levelHandlerObject = Level(self.graphicHandlerObject)
+		self.playerHandlerObject = Player(self.graphicHandlerObject,self.levelHandlerObject,self.keys)
+		for x in self.levelHandlerObject.ennemies :
+			x.playerHandlerObject = self.playerHandlerObject
+		self.levelHandlerObject.playerHandlerObject = self.playerHandlerObject
+		self.mainMenuHandlerObject.buttonPressed[0] = False
 
 	def run(self):
 
@@ -76,17 +82,12 @@ class Core():
 				####### level trigger
 				if (("ENTER" in self.keys or "Enter" in self.keys or self.mainMenuHandlerObject.buttonPressed[0]) or play) and not options:
 					if not play:
-						self.levelHandlerObject = Level(self.graphicHandlerObject)
-						self.playerHandlerObject = Player(self.graphicHandlerObject,self.levelHandlerObject,self.keys)
-						for x in self.levelHandlerObject.ennemies :
-							x.playerHandlerObject = self.playerHandlerObject
-						self.levelHandlerObject.playerHandlerObject = self.playerHandlerObject
-						#self.levelHandlerObject.matrix()
+						self.startLevel()
 						play = True
 						static = False
-						self.mainMenuHandlerObject.buttonPressed[0] = False
 						# self.levelHandlerObject.test()
-
+					if self.playerHandlerObject.death:
+						self.startLevel()
 					####### in-level actions :
 					self.graphicHandlerObject.displayBackgroundUpdate()
 					self.playerHandlerObject.keys = self.keys[:]
