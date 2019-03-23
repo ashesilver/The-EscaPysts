@@ -103,11 +103,11 @@ while not quit :
 		if mode == "walls" :
 
 			if gr.leftClick and not mousePos in Wsave["wall"]["position"]:
-				Wsave["wall"]["position"].append(mousePos)
-				Wsave["wall"]["destination"].append(mousePos)
+				Wsave["wall"]["position"].append({'x' : mousePos[0],'y' : mousePos[1] })
+				Wsave["wall"]["destination"].append({'x' : mousePos[0],'y' : mousePos[1] })
 			elif gr.rightClick and mousePos in Wsave["wall"]["position"]:
-				Wsave["wall"]["position"].remove(mousePos)
-				Wsave["wall"]["destination"].remove(mousePos)
+				Wsave["wall"]["position"].remove({'x' : mousePos[0],'y' : mousePos[1] })
+				Wsave["wall"]["destination"].remove({'x' : mousePos[0],'y' : mousePos[1] })
 			
 			for x in Wsave["wall"]["position"] :
 				gr.displaySquare(x)
