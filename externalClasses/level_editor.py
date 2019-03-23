@@ -15,35 +15,36 @@ grid = [ [y for y in range (0,60)] for x in range (0,60) ]
 
 common = []
 
-Wsave = {"gate":{					#### gates are doors to go from teem to another in same level
-				'image':['images/gate.jpg','images/openGate.jpg'], 		   #### image Adresse 
-				'position':[],
-				'size':[1,1],
-				'destination':[],         #### which room to go
-				'hideable':False 	   
-				},
-			"flowerPot":{
-			  	'image':['images/flowerPot.jpg'],
-			  		'position' :	[],
-			  	'size':[1,1],
-			  	'destination':	[],
-			  	'hideable':True
-				},
-			"key":{
-				'image':['images/key.jpg'],
-				'position' : [],
-				'size' : [1,1],
-				'destination' : [],
-				'hideable':False
-				},
-			"wall":{
-				'image':['images/wall.png'],
-				'position' : 	[],
-				'size' : [1,1],
-				'destination' : [],
-				'hideable':False
-				}
-			}
+Wsave = {
+	"gate":{
+		'image':['images/gate.jpg','images/openGate.png'],
+		'position':[],
+		'size':[1,1],
+		'destination':[],
+		'hideable':False 	   
+		},
+	"flowerPot":{
+	  	'image':['images/flowerPot.jpg'],
+	  	'position' :	[],
+	  	'size':[1,1],
+	  	'destination':	[],
+	  	'hideable':True
+		},
+	"key":{
+		'image':['images/key.jpg'],
+		'position' : [],
+		'size' : [1,1],
+		'destination' : [],
+		'hideable':False
+		},
+	"wall":{
+		'image':['images/wall.png'],
+		'position' : 	[],
+		'size' : [1,1],
+		'destination' : [],
+		'hideable':False
+		}
+	}
 common = [[]]
 
 c1=0
