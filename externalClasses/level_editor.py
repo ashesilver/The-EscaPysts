@@ -102,15 +102,15 @@ while not quit :
 
 		if mode == "walls" :
 
-			if gr.leftClick and not mousePos in Wsave["wall"]["position"]:
-				Wsave["wall"]["position"].append({'x' : mousePos[0],'y' : mousePos[1] })
-				Wsave["wall"]["destination"].append({'x' : mousePos[0],'y' : mousePos[1] })
-			elif gr.rightClick and mousePos in Wsave["wall"]["position"]:
-				Wsave["wall"]["position"].remove({'x' : mousePos[0],'y' : mousePos[1] })
-				Wsave["wall"]["destination"].remove({'x' : mousePos[0],'y' : mousePos[1] })
+			if gr.leftClick and not {'x':mousePos[0],'y':mousePos[1]} in Wsave["wall"]["position"]:
+				Wsave["wall"]["position"].append({'x':mousePos[0],'y':mousePos[1]})
+				Wsave["wall"]["destination"].append({'x':mousePos[0],'y':mousePos[1]})
+			elif gr.rightClick and {'x':mousePos[0],'y':mousePos[1]} in Wsave["wall"]["position"]:
+				Wsave["wall"]["position"].remove({'x':mousePos[0],'y':mousePos[1]})
+				Wsave["wall"]["destination"].remove({'x':mousePos[0],'y':mousePos[1]})
 			
 			for x in Wsave["wall"]["position"] :
-				gr.displaySquare(x)
+				gr.displaySquare([x['x'],x['y']])
 			
 			if ("enter" in keys) or ("ENTER" in keys):
 				if os.name == "posix" :
@@ -145,7 +145,7 @@ while not quit :
 				common[c1].remove(mousePos)
 
 			for x in Wsave["wall"]["position"] :
-				gr.displaySquare(x,1)
+				gr.displaySquare([x['x'],x['y']],1)
 			for x in common:
 				for y in x :
 					if x != common[c1] :
@@ -153,6 +153,7 @@ while not quit :
 			for x in common[c1] :
 				gr.displaySquare(x)
 				
+		gr.displaySquare([10,20],1)
 		gr.generalDisplayUpdate()
 
 
