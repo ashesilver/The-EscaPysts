@@ -2,11 +2,11 @@
 # -*- coding:utf-8 -*-
 
 var = {
-	'lvl0':{"gate":{					#### gates are doors to go from teem to another in same level
-				'image':['images/gate.jpg','images/openGate.png'], 		   #### image Adresse 
+	'lvl0':{"gate":{
+				'image':['images/gate.jpg','images/openGate.png'],
 				'position':[{'x':42,'y':50}],
 				'size':[1,1],
-				'destination':[{'x':42,'y':50}],         #### which room to go
+				'destination':[{'x':42,'y':50}],
 				'hideable':False 	   
 				},
 			"flowerPot":{
