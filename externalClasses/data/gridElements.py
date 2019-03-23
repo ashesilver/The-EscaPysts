@@ -3,14 +3,14 @@
 
 var = {
 	'lvl0':{"gate":{					#### gates are doors to go from teem to another in same level
-				'image':'images/gate.jpg', 		   #### image Adresse 
-				'position':[],
-				'size':["L","H"],
-				'destination':[],         #### which room to go
+				'image':['images/gate.jpg','images/openGate.png'], 		   #### image Adresse 
+				'position':[{'x':42,'y':50}],
+				'size':[1,1],
+				'destination':[{'x':42,'y':50}],         #### which room to go
 				'hideable':False 	   
 				},
 			"flowerPot":{
-			  	'image':'images/flowerPot.jpg',
+			  	'image':['images/flowerPot.jpg'],
 			  		'position' :	[{'x':35,'y':10},
 			  				{ 'x':36,'y':10},
 			  				{ 'x':35,'y':11},
@@ -24,15 +24,15 @@ var = {
 			  	],
 			  	'hideable':True
 				},
-			"noName":{
-				'image':'images/ground.jpg',
+			"key":{
+				'image':['images/key.jpg'],
 				'position' : [],
-				'size' : ['l','h'],
+				'size' : [1,1],
 				'destination' : [],
 				'hideable':False
 				},
 			"wall":{
-				'image':'images/wall.png',
+				'image':['images/wall.png'],
 				'position' : 	[{'x':20,'y':30},
 								{'x':22,'y':30},
 								{'x':24,'y':30},

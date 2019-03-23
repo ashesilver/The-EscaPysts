@@ -88,6 +88,9 @@ class Core():
 						# self.levelHandlerObject.test()
 					if self.playerHandlerObject.death:
 						self.startLevel()
+					elif self.playerHandlerObject.win:
+						self.levelHandlerObject.saveNext()
+						self.startLevel()
 					####### in-level actions :
 					self.graphicHandlerObject.displayBackgroundUpdate()
 					self.playerHandlerObject.keys = self.keys[:]

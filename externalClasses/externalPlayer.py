@@ -19,6 +19,8 @@ class Player():
 		self.imageAdress = "./images/player.jpg"
 		self.image = None
 		self.death = False
+		self.win = False
+		self.keysList = []
 
 
 	def hideout(self):
@@ -38,6 +40,10 @@ class Player():
 				x=y[:]
 			elif y[0].hideable :
 				self.hideouts=y[:]
+			elif y[0].type=='gate' :
+				self.endGate = y[0] 
+			elif y[0].type=='key' :
+				self.keysList = y
 
 		for e in x :
 			for xcord in range(0,e.size[0]):
@@ -64,3 +70,14 @@ class Player():
 		self.move_player()
 		self.hideout()
 		self.graphicHandlerObject.displayActivatable(self)
+		if self.position == self.endGate.position and self.endGate.open:
+			self.win = True
+
+		tmp = 0
+		for x in self.keysList :
+			if self.position == x.position :
+				x.picked = True
+			if x.picked :
+				tmp+=1
+		if tmp >= len(self.keysList)-1 :
+			self.endGate.open = True

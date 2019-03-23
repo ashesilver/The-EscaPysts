@@ -51,14 +51,15 @@ class Graphics():
 		else :
 			self.screen.blit(self.yellowSquare, [ int(x*(self.screen_h/60)) for x in coordinates])
 
-	def displayActivatable(self,element):
+	def displayActivatable(self,element,displaySet=True):
 		if element.image == None:
 			img = pygame.image.load(element.imageAdress).convert()
 			img = pygame.transform.scale(img, [ int(x*self.screen_h/60) for x in element.size] )
 			element.image = img
 		else :
 			img = element.image
-		self.screen.blit(img, [ int(x*self.screen_h/60) for x in element.position])
+		if displaySet :
+			self.screen.blit(img, [ int(x*self.screen_h/60) for x in element.position])
 		
 	def displayBackgroundUpdate(self,imageAdress=None):
 		if not imageAdress==None:
@@ -73,7 +74,6 @@ class Graphics():
 			self.buttonImage = pygame.transform.scale(self.buttonImage, (int(coordinates[2]*(self.screen_l/800)),int(coordinates[3]*(self.screen_h/800))) )
 		self.screen.blit(self.buttonImage, [int(coordinates[0]*(self.screen_l/800)),int(coordinates[1]*(self.screen_h/800))	])
 		
-
 	def generalDisplayUpdate(self):
 		pygame.display.flip()
 
