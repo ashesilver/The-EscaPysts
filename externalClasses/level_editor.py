@@ -59,7 +59,7 @@ mode = "walls"
 print("new mode : walls")
 
 cwd = os.getcwd()
-wFileAdress,eFileAdress = cwd+"/externalClasses/data/walls.txt",cwd+"data/ennemies.txt"
+wFileAdress,eFileAdress = cwd+"/externalClasses/data/walls.txt",cwd+"/externalClasses/data/ennemies.txt"
 
 def onGridMousePos(x):
 	return [int(x[0]/800*60),int(x[1]/800*60)]
