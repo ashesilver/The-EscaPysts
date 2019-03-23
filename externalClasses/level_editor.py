@@ -58,6 +58,9 @@ helper = "flèches :\n gauche -> passer en mode 'ennemis'\n droite -> passer en 
 mode = "walls"
 print("new mode : walls")
 
+cwd = os.getcwd()
+wFileAdress,eFileAdress = cwd+"/externalClasses/data/walls.txt",cwd+"data/ennemies.txt"
+
 def onGridMousePos(x):
 	return [int(x[0]/800*60),int(x[1]/800*60)]
 
@@ -117,7 +120,10 @@ while not quit :
 					os.system("clear")
 				elif os.name == "nt" :
 					os.system("cls")
-				print(mode+ " " + str(Wsave))
+				fileWall = open(wFileAdress,"w")
+				fileWall.write(str(Wsave))
+				print(mode+ " saved to : " + wFileAdress)
+				fileWall.close()
 
 		elif mode == "ennemies" :
 
@@ -137,7 +143,10 @@ while not quit :
 					os.system("clear")
 				elif os.name == "nt" :
 					os.system("cls")
-				print(mode+ " " + str(allEnnemies))
+				fileEnnemies = open(eFileAdress,"w")
+				fileEnnemies.write(str(allEnnemies))
+				print(mode+ " saved to : " + eFileAdress)
+				fileEnnemies.close()
 			
 			if gr.leftClick and not mousePos in common[c1]:
 				common[c1].append(mousePos)
@@ -155,6 +164,3 @@ while not quit :
 				
 		gr.displaySquare([10,20],1)
 		gr.generalDisplayUpdate()
-
-
-input("      press enter to kill this window")
