@@ -25,4 +25,10 @@ class Activatable():
 				self.imageAdress = self.imageAdresses[1]
 				self.image = None
 				self.needUpdate = False
-		graphicHandlerObject.displayActivatable(self)
+		if self.type == 'key':
+			if self.picked :
+				del self
+			else :
+				graphicHandlerObject.displayActivatable(self)
+		else:
+			graphicHandlerObject.displayActivatable(self)

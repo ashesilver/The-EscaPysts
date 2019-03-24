@@ -84,7 +84,10 @@ class Core():
 						self.levelHandlerObject.id = -1
 						self.levelHandlerObject.saveNext()
 						play = False
-						static = True
+						if static :
+							self.graphicHandlerObject.switchCursors()
+						else :
+							static = True
 						self.optionsMenuHandlerObject.buttonPressed[0] = False
 						self.deleteLevel()
 						self.graphicHandlerObject.displayBackgroundUpdate(self.optionsMenuHandlerObject.backgroundAdress, False)
@@ -125,6 +128,8 @@ class Core():
 					self.playerHandlerObject.update()
 					self.levelHandlerObject.update(self.fpsLimit)
 
+						#print(self.playerHandlerObject.position)
+			if run :
 				####### endLoop actions
 				self.keysRegister = temporaryKeyLock[:]
 				self.graphicHandlerObject.generalDisplayUpdate()

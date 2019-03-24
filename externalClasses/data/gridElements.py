@@ -85,9 +85,9 @@ var = {
         },
     'key': {
         'image': ['images/key.jpg'],
-        'position': [],
+        'position': [{'x':10,'y':41}],
         'size': [1, 1],
-        'destination': [],
+        'destination': [{'x':10,'y':41}],
         'hideable': False,
         },
     'wall': {

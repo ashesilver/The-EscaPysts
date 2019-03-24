@@ -13,6 +13,8 @@ class Player():
 		self.hidden = False
 
 		self.walkLock =[]
+		self.keysList = []
+		self.hideouts = []
 		self.lock()
 		
 		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
@@ -20,8 +22,6 @@ class Player():
 		self.image = None
 		self.death = False
 		self.win = False
-		self.keysList = []
-		self.hideouts = []
 
 	def hideout(self):
 		count = 0
@@ -73,11 +73,9 @@ class Player():
 		if self.position == self.endGate.position and self.endGate.open:
 			self.win = True
 
-		tmp = 0
 		for x in self.keysList :
-			if self.position == x.position :
+			if x.position == self.position :
 				x.picked = True
-			if x.picked :
-				tmp+=1
-		if tmp >= len(self.keysList)-1 :
+				self.keysList.remove(x)
+		if len(self.keysList) == 0 :
 			self.endGate.open = True
