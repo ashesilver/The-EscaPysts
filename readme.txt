@@ -1,63 +1,26 @@
-﻿Memo - classes à créer:
-	*principale (menu et appel niveau) //done
-	*niveau (génération)               //done
-	*ennemis                           //done
-	*joueur                            //done
-	*objet (énigmes)		   		   //done
-	*graphisme                         //done
-
-split class files system.
+﻿The EscaPysts : Take all the keys before going to the teleportation gate through these handmade levels ! Care for the ennemies and hide in the flower pots! 
 
 
+To play this game, you must install pyhton 3.X (as you like, lastest is better)
 
-classe Core -> possède les touches ainsi que la boucle principale  
+then use this pip command in a windows or linux shell to download pygame.
 
+python -m pip install pygame
 
-système de grilles pour les niveaux (classe : level) //done
-	systeme de pièces (sidescroll)  // bas les couilles
-	
+if the pygame installation doesn't work, try this :
 
-
-Graphics : initialise la fenetre //done
-		   peut la tuer//done
-	a faire : une méthode changant l'écran : graphic.sidescroll(NiveauEnCours, écranNuméroX)
-	
-Ennemis :
-	attributs :
-		- self.stun (booléen)  //done
-		- self.pos (tuple : X,Y) //done
-		- self.triggered (booléen)  //done
-		- self.playerObject (pas sur)  //done
-	- methodes :
-		- walk()  //done
-		- followPlayer() //done
-		- search()  //done
-		- checkPlayer()  //done
-	- fichier : 
-		- ennemiesPatern.py  //done
-	
-Player :
-	méthodes :
-		
-		- hide()  //done
-		
-	attributs :
-		
-Activatable :
-	fichiers :
-		- gridElements.py : 
-			format des variables : dict
-			- "canHide"
-			- "type"
-			- "gate"   //sortir des pièces
-			
-			
-	methodes :  
-		- links(self, other)
-		- activateObj()
+python3 -m pip install pygame
 
 
-level_Editor.py  //done
-à executer sur windows à l'aide du .bat
-sur linux > aller dans un terminal > entrer la commande :
+/*
+DEV NOTES (french only :p):
+
+level_Editor.py :
+
+if windows > lvled.bat
+
+if linux > shell > command (you have to be in the current folder "The-EscaPysts-Master" or the nickname you gave it) :
 python3 -u ./externalClasses/level_editor.py
+or :
+python -u ./externalClasses/level_editor.py
+*/
