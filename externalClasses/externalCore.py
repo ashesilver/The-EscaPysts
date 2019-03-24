@@ -9,7 +9,7 @@ from externalClasses.externalMenu import *
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
 
-	graphicHandlerObject = Graphics(800,800)
+	graphicHandlerObject = Graphics(600,600)
 	clock = pygame.time.Clock()
 	
 	def __init__(self, FPS_limit=240):
@@ -20,7 +20,7 @@ class Core():
 
 		self.optionsMenuHandlerObject = Menu(self.graphicHandlerObject)
 		self.optionsMenuHandlerObject.buttonPressed = [0,0]
-		self.optionsMenuHandlerObject.buttonCoords = [[154,489,495,97],[61,662,676,80]]
+		self.optionsMenuHandlerObject.buttonCoords = [[155,490,495,97],[62,663,676,80]]
 		self.optionsMenuHandlerObject.buttonImages = ["images/opbut_1.png","images/opbut_2.png"]
 		self.optionsMenuHandlerObject.backgroundAdress = "images/options.png"
 
@@ -61,17 +61,16 @@ class Core():
 			Core.clock.tick(self.fpsLimit) #defines clock's max speed by (1/FPS_limit) ms per frame
 			self.keys = self.graphicHandlerObject.getKeys()
 
-			try :
+			####### game-ender
+			if type(self.keys) == bool:
+				run = not(self.keys)
+				self.keys = []
+			else :
 				temporaryKeyLock = self.keys[:]
+		
+			if run :
 				self.keyLock()
 			
-			except :
-				####### game-ender
-				if type(self.keys) == bool:
-					run = not(self.keys)
-
-			else :
-
 				####### options menu trigger
 				if "esc" in self.keys or options:
 
@@ -125,10 +124,9 @@ class Core():
 					self.playerHandlerObject.update()
 					self.levelHandlerObject.update(self.fpsLimit)
 
-
 				####### endLoop actions
 				self.keysRegister = temporaryKeyLock[:]
 				self.graphicHandlerObject.generalDisplayUpdate()
-
-				####### tests zone
+		
+		####### tests zone
 				

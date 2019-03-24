@@ -9,7 +9,7 @@ class Menu():
 
 		#self.graphicHandlerObject.displayBackgroundUpdate(self.backgroundAdress)
 
-		self.buttonCoords = [[245,210,295,425]]  #j'aurais pu faire une classe 'bouton' mais hé... on en a qu'un seul, ça va oui ?
+		self.buttonCoords = [[246,211,295,425]]  #j'aurais pu faire une classe 'bouton' mais hé... on en a qu'un seul, ça va oui ?
 		self.buttonPressed = [0]
 		self.buttonImages = ["images/bouton_menu.png"]
 

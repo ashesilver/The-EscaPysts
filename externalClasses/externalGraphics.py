@@ -1,6 +1,7 @@
 #!/bin/usr/python3
 # -*- coding:utf-8 -*-
 
+import os
 import pygame
 from pygame.locals import *
 
@@ -24,6 +25,12 @@ class Graphics():
 		self.screen_h = screen_h
 
 		Graphics.screen = initialize(self.screen_l,self.screen_h)
+
+		if os.name == "posix" :
+			self.keys_nb = [273,276,274,275,13,271,27,38,233,34,39]
+		elif os.name == "nt" :
+			self.keys_nb = [273,276,274,275,13,271,27,49,50,51,52]
+		self.keys_name = ["U","L","D","R","Enter","ENTER","esc","1","2","3","4"]
 
 		self.leftClick = 0
 		self.rightClick = 0
@@ -88,7 +95,6 @@ class Graphics():
 		else :
 			pygame.mouse.set_cursor(*self.normalCursor)
 		self.cursorState = not( self.cursorState )
-		print(self.cursorState)
 
 	#GETKEYS/MOUSE
 
@@ -96,8 +102,6 @@ class Graphics():
 		#no parameters
 		#gives a "quit = true" if the player presses Alt+F4, otherwise gives the pressed keys
 
-		keys_name = ["U","L","D","R","Enter","ENTER","esc","1","2","3","4"]
-		keys_nb = [273,276,274,275,13,271,27,38,233,34,39] # touches "1234" pour linux : [38,233,34,39] - alternative windows [49,50,51,52]
 		keys_input = []
 
 		all_keys = pygame.key.get_pressed()
@@ -108,9 +112,9 @@ class Graphics():
 			if event.type == pygame.QUIT:
 				self.killWindow()
 				return(True)
-		for k in keys_nb:
+		for k in self.keys_nb:
 			if all_keys[k] :
-				keys_input.append(keys_name[keys_nb.index(k)])
+				keys_input.append(self.keys_name[self.keys_nb.index(k)])
 		#print(all_keys.index(1))
 		
 		return keys_input

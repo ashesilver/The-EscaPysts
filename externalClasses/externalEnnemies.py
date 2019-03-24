@@ -210,7 +210,7 @@ class Ennemies():
 
 	def update(self,fps):
 		self.positionPrec = self.position[:]
-		if self.playerHandlerObject.position in self.vision:
+		if self.playerHandlerObject.position in self.vision and not self.playerHandlerObject.hidden:
 			self.lastSeenPosition = self.playerHandlerObject.position[:]
 			self.triggered = True
 			self.searching = False
@@ -250,7 +250,7 @@ class Ennemies():
 			self.walk()
 			self.backPath,self.previousBP = [],[]
 			self.walkTick_4 = 0
-		elif self.playerHandlerObject.hidden or self.searching:
+		elif self.searching:
 			self.search()
 			self.lostFrames += 1
 			self.overwriteVisionMethod = True		
