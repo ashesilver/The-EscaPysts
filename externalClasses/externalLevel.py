@@ -27,19 +27,15 @@ class Level():
 		tmp = ennemiesPat.var["lvl"+str(self.id)]
 		self.ennemies= [ Ennemies(self.graphicHandlerObject,self,player,x) for x in tmp ]
 
-		self.imageAdress = "./images/lvl"+str(self.id)+".png"
-		self.graphicHandlerObject.displayBackgroundUpdate(self.imageAdress)
+		self.imageAdress = "./images/lvl.png"
+		self.graphicHandlerObject.displayBackgroundUpdate(self.imageAdress, False)
 
 		self.elements = [x for x in self.elements if x != []]
-		for x in self.elements :
-			for y in x :
-					#print("trying to display "+y.type+ " at : "+ str(y.position))
-					y.update(self.graphicHandlerObject)				
-					#print("sucessfully displayed "+y.type+ " at : "+ str(y.position))
 
 		self.intersectMatrix = [[]]
 
 	def update(self,fps):
+		self.graphicHandlerObject.displayBackgroundUpdate()
 		for x in self.elements :
 			for y in x :
 					#print("trying to display "+y.type+ " at : "+ str(y.position))

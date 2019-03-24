@@ -25,3 +25,6 @@ class Menu():
 				if self.graphicHandlerObject.leftClick :
 					self.buttonPressed[self.buttonCoords.index(x)] = True
 		
+
+
+# reset : [154,489,495,97],"images/opbut_1.png"

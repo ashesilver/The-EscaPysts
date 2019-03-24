@@ -29,6 +29,7 @@ class Graphics():
 		self.rightClick = 0
 
 		self.buttonImage = None
+		self.buttonAdress = ""
 
 		self.yellowSquare = pygame.image.load("images/sq.png").convert()
 		self.yellowSquare = pygame.transform.scale(self.yellowSquare, (int(self.screen_l/60),int(self.screen_h/60)) )
@@ -61,15 +62,16 @@ class Graphics():
 		if displaySet :
 			self.screen.blit(img, [ int(x*self.screen_h/60) for x in element.position])
 		
-	def displayBackgroundUpdate(self,imageAdress=None):
+	def displayBackgroundUpdate(self,imageAdress=None,do_blit=True):
 		if not imageAdress==None:
 			self.bckg = pygame.image.load(imageAdress).convert()
 			self.bckg = pygame.transform.scale(self.bckg, (self.screen_l,self.screen_h))
-
-		self.screen.blit(self.bckg,(0,0))
+		if do_blit :
+			self.screen.blit(self.bckg,(0,0))
 
 	def displayButton(self,imageAdress,coordinates):
-		if self.buttonImage == None :
+		if self.buttonImage == None or imageAdress != self.buttonAdress:
+			self.buttonAdress = imageAdress
 			self.buttonImage = pygame.image.load(imageAdress).convert()
 			self.buttonImage = pygame.transform.scale(self.buttonImage, (int(coordinates[2]*(self.screen_l/800)),int(coordinates[3]*(self.screen_h/800))) )
 		self.screen.blit(self.buttonImage, [int(coordinates[0]*(self.screen_l/800)),int(coordinates[1]*(self.screen_h/800))	])

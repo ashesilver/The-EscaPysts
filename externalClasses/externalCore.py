@@ -36,6 +36,10 @@ class Core():
 		self.levelHandlerObject.playerHandlerObject = self.playerHandlerObject
 		self.mainMenuHandlerObject.buttonPressed[0] = False
 
+	def deleteLevel(self):
+		del self.levelHandlerObject
+		del self.playerHandlerObject
+
 	def run(self):
 
 		run = True
@@ -64,10 +68,24 @@ class Core():
 				if "esc" in self.keys or options:
 					if not options :
 						self.optionsMenuHandlerObject = Menu(self.graphicHandlerObject)
-						self.optionsMenuHandlerObject.buttonPressed, self.optionsMenuHandlerObject.buttonCoords, self.optionsMenuHandlerObject.buttonImages = [],[],[]
+						self.optionsMenuHandlerObject.buttonPressed = [0]
+						self.optionsMenuHandlerObject.buttonCoords = [[154,489,495,97]]
+						self.optionsMenuHandlerObject.buttonImages = ["images/opbut_1.png"]
 						self.optionsMenuHandlerObject.backgroundAdress = "images/options.png"
 
 					self.optionsMenuHandlerObject.update()
+
+					if self.optionsMenuHandlerObject.buttonPressed[0]:
+						if not play :
+							self.levelHandlerObject = Level(self.graphicHandlerObject)
+							self.playerHandlerObject = None
+						self.levelHandlerObject.id = -1
+						self.levelHandlerObject.saveNext()
+						play = False
+						static = True
+						self.optionsMenuHandlerObject.buttonPressed[0] = False
+						self.deleteLevel()
+						self.graphicHandlerObject.displayBackgroundUpdate(self.optionsMenuHandlerObject.backgroundAdress, False)
 
 
 					if "esc" in self.keys:
@@ -87,12 +105,13 @@ class Core():
 						static = False
 						# self.levelHandlerObject.test()
 					if self.playerHandlerObject.death:
+						self.deleteLevel()
 						self.startLevel()
 					elif self.playerHandlerObject.win:
 						self.levelHandlerObject.saveNext()
+						self.deleteLevel()
 						self.startLevel()
 					####### in-level actions :
-					self.graphicHandlerObject.displayBackgroundUpdate()
 					self.playerHandlerObject.keys = self.keys[:]
 					self.playerHandlerObject.update()
 					self.levelHandlerObject.update(self.fpsLimit)

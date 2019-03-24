@@ -69,6 +69,6 @@ var = {
 				'hideable':False
 				}
 			},
-	'lvl1':{}
+	'lvl1':{},
 	'lvl2':{}
 }
