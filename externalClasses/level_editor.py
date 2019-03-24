@@ -5,7 +5,10 @@ from externalGraphics import *
 
 import os
 
-gr = Graphics(600,600)
+window_width,window_height = 600,600
+
+
+gr = Graphics(window_width,window_height)
 
 clock = pygame.time.Clock()
 
@@ -62,7 +65,7 @@ cwd = os.getcwd()
 wFileAdress,eFileAdress = cwd+"/externalClasses/data/walls.txt",cwd+"/externalClasses/data/ennemies.txt"
 
 def onGridMousePos(x):
-	return [int(x[0]/800*60),int(x[1]/800*60)]
+	return [int(x[0]/window_width*60),int(x[1]/window_height*60)]
 
 def keyLock(keys,keysRegister):
 	for x in ["U","L","D","R","Enter","ENTER","esc","1","2","3","4"]:
