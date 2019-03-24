@@ -21,7 +21,7 @@ class Player():
 		self.death = False
 		self.win = False
 		self.keysList = []
-
+		self.hideouts = []
 
 	def hideout(self):
 		count = 0

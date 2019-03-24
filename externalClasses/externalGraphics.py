@@ -85,7 +85,13 @@ class Graphics():
 			self.buttonImage = pygame.image.load(imageAdress).convert()
 			self.buttonImage = pygame.transform.scale(self.buttonImage, (int(coordinates[2]*(self.screen_l/800)),int(coordinates[3]*(self.screen_h/800))) )
 		self.screen.blit(self.buttonImage, [int(coordinates[0]*(self.screen_l/800)),int(coordinates[1]*(self.screen_h/800))	])
-		
+	
+	def displayLoadingScreen(self):
+		img = pygame.image.load("images/loading.png").convert()
+		img = pygame.transform.scale(img, (self.screen_l,self.screen_h))
+		self.screen.blit(img,(0,0))
+		self.generalDisplayUpdate()
+
 	def generalDisplayUpdate(self):
 		pygame.display.flip()
 

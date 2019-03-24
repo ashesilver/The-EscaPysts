@@ -36,6 +36,7 @@ class Core():
 				
 	def startLevel(self):
 		self.graphicHandlerObject.switchCursors()
+		self.graphicHandlerObject.displayLoadingScreen()
 		self.levelHandlerObject = Level(self.graphicHandlerObject)
 		self.playerHandlerObject = Player(self.graphicHandlerObject,self.levelHandlerObject,self.keys)
 		for x in self.levelHandlerObject.ennemies :
