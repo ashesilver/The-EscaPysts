@@ -35,7 +35,6 @@ class Level():
 		self.intersectMatrix = [[]]
 
 	def update(self,fps):
-		self.graphicHandlerObject.displayBackgroundUpdate()
 		for x in self.elements :
 			for y in x :
 					#print("trying to display "+y.type+ " at : "+ str(y.position))

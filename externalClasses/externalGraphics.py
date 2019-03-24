@@ -31,6 +31,9 @@ class Graphics():
 		self.buttonImage = None
 		self.buttonAdress = ""
 
+		self.normalCursor = pygame.mouse.get_cursor()
+		self.cursorState = True
+
 		self.yellowSquare = pygame.image.load("images/sq.png").convert()
 		self.yellowSquare = pygame.transform.scale(self.yellowSquare, (int(self.screen_l/60),int(self.screen_h/60)) )
 		self.lvledoverride1 = pygame.image.load("images/wall.png").convert()
@@ -79,8 +82,15 @@ class Graphics():
 	def generalDisplayUpdate(self):
 		pygame.display.flip()
 
+	def switchCursors(self):
+		if self.cursorState :
+			pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
+		else :
+			pygame.mouse.set_cursor(*self.normalCursor)
+		self.cursorState = not( self.cursorState )
+		print(self.cursorState)
 
-	#GETKEYS
+	#GETKEYS/MOUSE
 
 	def getKeys(self):
 		#no parameters
@@ -110,7 +120,9 @@ class Graphics():
 		self.rightClick = pygame.mouse.get_pressed()[2]
 		return pygame.mouse.get_pos()
 
-	def drawGrid(self):
+	##### obsolete
+
+	def drawGrid(self):  #for level_editor.py
 		for x in range(1,61):
 			pygame.draw.line(self.screen,[125,125,125],(x*self.screen_l/60,0),(x*self.screen_l/60,self.screen_h))
 		for y in range(1,61):

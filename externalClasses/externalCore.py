@@ -18,6 +18,12 @@ class Core():
 
 		self.mainMenuHandlerObject = Menu(self.graphicHandlerObject)
 
+		self.optionsMenuHandlerObject = Menu(self.graphicHandlerObject)
+		self.optionsMenuHandlerObject.buttonPressed = [0,0]
+		self.optionsMenuHandlerObject.buttonCoords = [[154,489,495,97],[61,662,676,80]]
+		self.optionsMenuHandlerObject.buttonImages = ["images/opbut_1.png","images/opbut_2.png"]
+		self.optionsMenuHandlerObject.backgroundAdress = "images/options.png"
+
 			
 	def keyLock(self):
 		for x in self.keys:
@@ -29,6 +35,7 @@ class Core():
 					self.keysRegister.append(x)
 				
 	def startLevel(self):
+		self.graphicHandlerObject.switchCursors()
 		self.levelHandlerObject = Level(self.graphicHandlerObject)
 		self.playerHandlerObject = Player(self.graphicHandlerObject,self.levelHandlerObject,self.keys)
 		for x in self.levelHandlerObject.ennemies :
@@ -37,6 +44,7 @@ class Core():
 		self.mainMenuHandlerObject.buttonPressed[0] = False
 
 	def deleteLevel(self):
+		self.graphicHandlerObject.switchCursors()
 		del self.levelHandlerObject
 		del self.playerHandlerObject
 
@@ -66,12 +74,6 @@ class Core():
 
 				####### options menu trigger
 				if "esc" in self.keys or options:
-					if not options :
-						self.optionsMenuHandlerObject = Menu(self.graphicHandlerObject)
-						self.optionsMenuHandlerObject.buttonPressed = [0]
-						self.optionsMenuHandlerObject.buttonCoords = [[154,489,495,97]]
-						self.optionsMenuHandlerObject.buttonImages = ["images/opbut_1.png"]
-						self.optionsMenuHandlerObject.backgroundAdress = "images/options.png"
 
 					self.optionsMenuHandlerObject.update()
 
@@ -86,12 +88,18 @@ class Core():
 						self.optionsMenuHandlerObject.buttonPressed[0] = False
 						self.deleteLevel()
 						self.graphicHandlerObject.displayBackgroundUpdate(self.optionsMenuHandlerObject.backgroundAdress, False)
-
+					elif self.optionsMenuHandlerObject.buttonPressed[1]:
+						run = False
+						self.graphicHandlerObject.killWindow()
 
 					if "esc" in self.keys:
 						if options and play:
 							self.graphicHandlerObject.displayBackgroundUpdate(self.levelHandlerObject.imageAdress)
+							self.graphicHandlerObject.switchCursors()
+						elif play :
+							self.graphicHandlerObject.switchCursors()
 						options = not(options)
+
 
 				####### main menu
 				elif static:
@@ -112,6 +120,7 @@ class Core():
 						self.deleteLevel()
 						self.startLevel()
 					####### in-level actions :
+					self.graphicHandlerObject.displayBackgroundUpdate()
 					self.playerHandlerObject.keys = self.keys[:]
 					self.playerHandlerObject.update()
 					self.levelHandlerObject.update(self.fpsLimit)
