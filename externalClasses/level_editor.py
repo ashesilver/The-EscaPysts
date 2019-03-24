@@ -5,7 +5,7 @@ from externalGraphics import *
 
 import os
 
-gr = Graphics()
+gr = Graphics(600,600)
 
 clock = pygame.time.Clock()
 
@@ -74,7 +74,7 @@ def keyLock(keys,keysRegister):
 			keysRegister.append(x)
 	return (keys,keysRegister)
 
-gr.displayBackgroundUpdate("images/lvl0.png")
+gr.displayBackgroundUpdate("images/lvl.png")
 
 while not quit :
 	clock.tick(120)
