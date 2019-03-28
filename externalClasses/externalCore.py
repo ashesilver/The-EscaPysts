@@ -128,12 +128,25 @@ class Core():
 					elif self.playerHandlerObject.win:
 						self.levelHandlerObject.saveNext()
 						self.deleteLevel()
-						self.startLevel()
+						try :
+							self.startLevel()
+						except :
+							self.levelHandlerObject = skip_init(Level)
+							self.levelHandlerObject.memoryPath()
+							self.playerHandlerObject = None
+							self.levelHandlerObject.id = -1
+							self.levelHandlerObject.saveNext()
+							self.deleteLevel()
+							play = False
+							static = True
+							pass #win screen -- coming out soon !
+
 					####### in-level actions :
-					self.graphicHandlerObject.displayBackgroundUpdate()
-					self.playerHandlerObject.keys = self.keys[:]
-					self.playerHandlerObject.update()
-					self.levelHandlerObject.update(self.fpsLimit)
+					if play:
+						self.graphicHandlerObject.displayBackgroundUpdate()
+						self.playerHandlerObject.keys = self.keys[:]
+						self.playerHandlerObject.update()
+						self.levelHandlerObject.update(self.fpsLimit)
 
 						#print(self.playerHandlerObject.position)
 			if run :
