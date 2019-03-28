@@ -130,6 +130,8 @@ while not quit :
 
 		elif mode == "ennemies" :
 
+			allEnnemies = [ [ [ x for x in y if x != [] ] for y in z if y != [] ] for z in allEnnemies if z != [] ]
+
 			if 'D' in keys:
 				allEnnemies.append(common)
 				common = [[]]
