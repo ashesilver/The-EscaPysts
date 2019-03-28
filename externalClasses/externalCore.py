@@ -6,6 +6,13 @@ from externalClasses.externalLevel import *
 from externalClasses.externalPlayer import *
 from externalClasses.externalMenu import *
 
+def skip_init(cls):
+    actual_init = cls.__init__
+    cls.__init__ = lambda *args, **kwargs: None
+    instance = cls()
+    cls.__init__ = actual_init
+    return instance
+
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
 
@@ -79,14 +86,14 @@ class Core():
 
 					if self.optionsMenuHandlerObject.buttonPressed[0]:
 						if not play :
-							self.levelHandlerObject = Level(self.graphicHandlerObject)
+							self.levelHandlerObject = skip_init(Level)
+							self.levelHandlerObject.memoryPath()
 							self.playerHandlerObject = None
 						self.levelHandlerObject.id = -1
 						self.levelHandlerObject.saveNext()
 						play = False
-						if static :
-							self.graphicHandlerObject.switchCursors()
-						else :
+						self.graphicHandlerObject.switchCursors()
+						if not static :
 							static = True
 						self.optionsMenuHandlerObject.buttonPressed[0] = False
 						self.deleteLevel()
