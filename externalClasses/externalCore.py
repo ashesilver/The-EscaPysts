@@ -16,7 +16,7 @@ def skipInit(cls):
 class Core():
 	"""classe prinicpale gérant toutes les autres"""
 
-	graphicHandlerObject = Graphics(600,600)
+	graphicHandlerObject = Graphics(1000,1000)
 	clock = pygame.time.Clock()
 	
 	def __init__(self, FPS_limit=240):
