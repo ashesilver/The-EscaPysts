@@ -6,11 +6,11 @@ from externalClasses.externalLevel import *
 from externalClasses.externalPlayer import *
 from externalClasses.externalMenu import *
 
-def skip_init(cls):
-    actual_init = cls.__init__
+def skipInit(cls):
+    actualInit = cls.__init__
     cls.__init__ = lambda *args, **kwargs: None
     instance = cls()
-    cls.__init__ = actual_init
+    cls.__init__ = actualInit
     return instance
 
 class Core():
@@ -86,7 +86,7 @@ class Core():
 
 					if self.optionsMenuHandlerObject.buttonPressed[0]:
 						if not play :
-							self.levelHandlerObject = skip_init(Level)
+							self.levelHandlerObject = skipInit(Level)
 							self.levelHandlerObject.memoryPath()
 							self.playerHandlerObject = None
 						self.levelHandlerObject.id = -1
@@ -131,7 +131,7 @@ class Core():
 						try :
 							self.startLevel()
 						except :
-							self.levelHandlerObject = skip_init(Level)
+							self.levelHandlerObject = skipInit(Level)
 							self.levelHandlerObject.memoryPath()
 							self.playerHandlerObject = None
 							self.levelHandlerObject.id = -1
