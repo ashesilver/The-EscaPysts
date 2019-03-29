@@ -157,7 +157,17 @@ class Ennemies():
 	def search(self):
 		if not self.stun and not self.frames%30:
 			self.position = self.positionPrec[:]
-			self.direction = choice(['up','down','left','right'])
+			try:
+				if self.playerHandlerObject.keys[0]=="U":
+					self.direction ='up'
+				if self.playerHandlerObject.keys[0]=="D":
+					self.direction ='down'
+				if self.playerHandlerObject.keys[0]=="R":
+					self.direction ='right'
+				if self.playerHandlerObject.keys[0]=="L":
+					self.direction ='left'
+			except:
+				self.direction = choice(['up','down','left','right'])
 			if self.direction == "left" :
 				self.vision = [
 				[self.position[0]-1,self.position[1]],
