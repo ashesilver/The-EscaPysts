@@ -155,7 +155,7 @@ class Ennemies():
 		self.vision = [x for x in self.vision if x != []]
 
 	def search(self):
-		if not self.stun and not self.frames%30:
+		if not self.stun and not self.frames%12:
 			self.position = self.positionPrec[:]
 			try:
 				if self.playerHandlerObject.keys[0]=="U":
