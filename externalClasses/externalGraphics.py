@@ -1,7 +1,7 @@
 #!/bin/usr/python3
 # -*- coding:utf-8 -*-
 
-import os
+import os,warnings
 import pygame
 from pygame.locals import *
 
@@ -30,6 +30,9 @@ class Graphics():
 			self.keys_nb = [273,276,274,275,13,271,27,38,233,34,39]
 		elif os.name == "nt" :
 			self.keys_nb = [273,276,274,275,13,271,27,49,50,51,52]
+		else :
+			warnings.warn(os.name+" OS ins't supported for The EscaPysts !",Warning)
+			self.keys_nb = []
 		self.keys_name = ["U","L","D","R","Enter","ENTER","esc","1","2","3","4"]
 
 		self.leftClick = 0
