@@ -133,6 +133,11 @@ class Graphics():
 		self.rightClick = pygame.mouse.get_pressed()[2]
 		return pygame.mouse.get_pos()
 
+	def staticImage(self,Adr,size):
+		img = pygame.image.load(Adr).convert()
+		img = pygame.transform.scale(img, [ int(x*self.screen_h/60) for x in size] )
+		return img
+
 	##### obsolete
 
 	def drawGrid(self):  #for level_editor.py

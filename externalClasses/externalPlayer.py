@@ -16,10 +16,24 @@ class Player():
 		self.keysList = []
 		self.hideouts = []
 		self.lock()
+		self.direction = "right"
+		self.spriteFrames = 0
 		
 		self.size = [1,1] #ah j'en ai besoin pour graphique tu touche pas hein !
 		self.imageAdress = "./images/player.jpg"
 		self.image = None
+		self.leftImages = ["left"]
+		self.downImages = ["down"]
+		self.rightImages = ["right"]
+		self.upImages = ["up"]
+		for x in [self.leftImages,self.downImages,self.rightImages,self.upImages]:
+			tmp = x[0]
+			x.remove(tmp)
+			for i in range(6):
+				x.append(self.graphicHandlerObject.staticImage("./images/"+tmp+"_"+str(i)+".png",self.size))
+		self.images = self.rightImages
+
+
 		self.death = False
 		self.win = False
 
@@ -56,12 +70,44 @@ class Player():
 			self.positionPrec = self.position[:]
 			if "U" in self.keys and self.position[1] > 0 :
 				self.position[1] -= 1
+				if self.direction != "up":
+					self.spriteFrames = 0
+					self.images = self.upImages
+					self.direction = "up"
+				elif self.spriteFrames < 5 :
+					self.spriteFrames +=1
+				else : 
+					self.spriteFrames = 0
 			elif "D" in self.keys and self.position[1] < len(self.levelHandlerObject.grid)-1:
 				self.position[1] += 1
-			if "R" in self.keys and self.position[0] < len(self.levelHandlerObject.grid[0])-1 :
+				if self.direction != "down":
+					self.spriteFrames = 0
+					self.images = self.downImages
+					self.direction = "down"
+				elif self.spriteFrames < 5 :
+					self.spriteFrames +=1
+				else : 
+					self.spriteFrames = 0
+			elif "R" in self.keys and self.position[0] < len(self.levelHandlerObject.grid[0])-1 :
 				self.position[0] +=1
+				if self.direction != "right":
+					self.spriteFrames = 0
+					self.images = self.rightImages
+					self.direction = "right"
+				elif self.spriteFrames < 5 :
+					self.spriteFrames +=1
+				else : 
+					self.spriteFrames = 0
 			elif "L" in self.keys and self.position[0] > 0:
 				self.position[0] -=1
+				if self.direction != "left":
+					self.spriteFrames = 0
+					self.images = self.leftImages
+					self.direction = "left"
+				elif self.spriteFrames < 5 :
+					self.spriteFrames +=1
+				else : 
+					self.spriteFrames = 0
 			if self.position in self.walkLock :
 				self.position = self.positionPrec[:]
 			self.walkTick = 0
@@ -69,6 +115,7 @@ class Player():
 	def update(self):
 		self.move_player()
 		self.hideout()
+		self.image = self.images[self.spriteFrames]
 		self.graphicHandlerObject.displayActivatable(self)
 		if self.position == self.endGate.position and self.endGate.open:
 			self.win = True
