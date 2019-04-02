@@ -20,6 +20,8 @@ class Activatable():
 		#print(self.type)
 
 	def update(self, graphicHandlerObject):
+		if self.type == "wall":
+			graphicHandlerObject.displayActivatable(self,True,False)
 		if self.type == 'gate':
 			if self.open and self.needUpdate:
 				self.imageAdress = self.imageAdresses[1]
@@ -32,3 +34,4 @@ class Activatable():
 				graphicHandlerObject.displayActivatable(self)
 		else:
 			graphicHandlerObject.displayActivatable(self)
+		

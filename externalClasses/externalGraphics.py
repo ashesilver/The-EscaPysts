@@ -65,8 +65,10 @@ class Graphics():
 		else :
 			self.screen.blit(self.yellowSquare, [ int(x*(self.screen_h/60)) for x in coordinates])
 
-	def displayActivatable(self,element,displaySet=True):
-		if element.image == None:
+	def displayActivatable(self,element,displaySet=True,unoptimized=False):
+		if unoptimized :
+			img = self.lvledoverride1
+		elif element.image == None:
 			img = pygame.image.load(element.imageAdress).convert()
 			img = pygame.transform.scale(img, [ int(x*self.screen_h/60) for x in element.size] )
 			element.image = img
