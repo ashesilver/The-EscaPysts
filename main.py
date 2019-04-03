@@ -11,4 +11,5 @@ game = Core(100)
 game.run()
 print("\nsucessfully executed : The EscaPysts\nSee you soon !\n")
 input("Press Enter to kill this window.")
+del game
 quit()

@@ -8,9 +8,8 @@ from pygame.locals import *
 def initialize(screen_l,screen_h):
 	#returns pygame object (weird stuff)
 	pygame.init()
-	screen = pygame.display.set_mode((screen_l,screen_h), HWSURFACE | DOUBLEBUF )
+	screen = pygame.display.set_mode((screen_l,screen_h))
 	pygame.display.set_caption("The EscaPysts")
-	#pygame.display.set_icon(pygame.image.load('images/'))
 	pygame.display.flip()
 	return screen
 
@@ -88,8 +87,8 @@ class Graphics():
 		if self.buttonImage == None or imageAdress != self.buttonAdress:
 			self.buttonAdress = imageAdress
 			self.buttonImage = pygame.image.load(imageAdress).convert()
-			self.buttonImage = pygame.transform.scale(self.buttonImage, (int(coordinates[2]*(self.screen_l/800)),int(coordinates[3]*(self.screen_h/800))) )
-		self.screen.blit(self.buttonImage, [int(coordinates[0]*(self.screen_l/800)),int(coordinates[1]*(self.screen_h/800))	])
+			self.buttonImage = pygame.transform.scale(self.buttonImage, (int(coordinates[2]*(self.screen_l/800)),int(coordinates[3]*(self.screen_h/800))))
+		self.screen.blit(self.buttonImage, [int(coordinates[0]*(self.screen_l/800)),int(coordinates[1]*(self.screen_h/800))])
 	
 	def displayLoadingScreen(self):
 		img = pygame.image.load("images/loading.png").convert()

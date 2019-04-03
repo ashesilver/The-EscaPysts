@@ -31,6 +31,11 @@ class Core():
 		self.optionsMenuHandlerObject.buttonImages = ["images/opbut_1.png","images/opbut_2.png"]
 		self.optionsMenuHandlerObject.backgroundAdress = "images/options.png"
 
+		self.winMenuHandlerObject = Menu(self.graphicHandlerObject)
+		self.winMenuHandlerObject.backgroundAdress = "images/win.png"
+		self.winMenuHandlerObject.buttonCoords = [[0,0,800,800]]
+		self.winMenuHandlerObject.buttonImages = ["images/win.png"]
+
 			
 	def keyLock(self):
 		for x in self.keys:
@@ -60,7 +65,7 @@ class Core():
 
 		run = True
 		static = True #(menu)
-
+		win = False
 		options = False
 		play = False
 
@@ -80,7 +85,12 @@ class Core():
 				self.keyLock()
 			
 				####### options menu trigger
-				if "esc" in self.keys or options:
+				if win :
+					self.winMenuHandlerObject.update()
+					if self.winMenuHandlerObject.buttonPressed[0]:
+						run = False
+						self.graphicHandlerObject.killWindow()
+				elif "esc" in self.keys or options:
 
 					self.optionsMenuHandlerObject.update()
 
@@ -97,7 +107,7 @@ class Core():
 							static = True
 						self.optionsMenuHandlerObject.buttonPressed[0] = False
 						self.deleteLevel()
-						self.graphicHandlerObject.displayBackgroundUpdate(self.optionsMenuHandlerObject.backgroundAdress, False)
+						self.graphicHandlerObject.displayBackgroundUpdate(self.optionsMenuHandlerObject.backgroundAdress)
 					elif self.optionsMenuHandlerObject.buttonPressed[1]:
 						run = False
 						self.graphicHandlerObject.killWindow()
@@ -118,10 +128,21 @@ class Core():
 				####### level trigger
 				if (("ENTER" in self.keys or "Enter" in self.keys or self.mainMenuHandlerObject.buttonPressed[0]) or play) and not options:
 					if not play:
-						self.startLevel()
-						play = True
+						self.mainMenuHandlerObject.buttonPressed[0] = False
 						static = False
-						# self.levelHandlerObject.test()
+						try :
+							self.startLevel()
+							play = True
+						except :
+							self.levelHandlerObject = skipInit(Level)
+							self.levelHandlerObject.id = -1
+							self.levelHandlerObject.memoryPath()
+							self.playerHandlerObject = skipInit(Player)
+							self.playerHandlerObject.death = False
+							self.playerHandlerObject.win = False
+							play = False
+							win = True
+
 					if self.playerHandlerObject.death:
 						self.deleteLevel()
 						self.startLevel()
@@ -138,8 +159,7 @@ class Core():
 							self.levelHandlerObject.saveNext()
 							self.deleteLevel()
 							play = False
-							static = True
-							pass #win screen -- coming out soon !
+							win = True
 
 					####### in-level actions :
 					if play:
@@ -153,6 +173,3 @@ class Core():
 				####### endLoop actions
 				self.keysRegister = temporaryKeyLock[:]
 				self.graphicHandlerObject.generalDisplayUpdate()
-		
-		####### tests zone
-				
