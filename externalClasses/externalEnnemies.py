@@ -122,38 +122,64 @@ class Ennemies():
 			self.searching = True
 
 	def cancelVision(self):
-		for x in self.vision:
-			if x in self.playerHandlerObject.walkLock or x in self.playerHandlerObject.hideouts:
-				if self.direction == "left":
-					for i in range(0,len(self.vision)):
-						try :
-							if (self.vision[i][1] == x[1] or (self.vision[i][1] == x[1]+1 and not self.vision[i] in self.playerHandlerObject.walkLock) or (self.vision[i][1] == x[1]-1 and not self.vision[i] in self.playerHandlerObject.walkLock)) and self.vision[i][0] <= x[0]:
-								self.vision[i] = []
-						except :
-							pass
-				elif self.direction == "right":
-					for i in range(0,len(self.vision)):
-						try :
-							if (self.vision[i][1] == x[1] or (self.vision[i][1] == x[1]+1 and not self.vision[i] in self.playerHandlerObject.walkLock) or (self.vision[i][1] == x[1]-1 and not self.vision[i] in self.playerHandlerObject.walkLock)) and self.vision[i][0] >= x[0]:
-								self.vision[i] = []
-						except :
-							pass
-				elif self.direction == "up":
-					for i in range(0,len(self.vision)):
-						try :
-							if (self.vision[i][0] == x[0] or (self.vision[i][0] == x[0]+1 and not self.vision[i] in self.playerHandlerObject.walkLock) or (self.vision[i][0] == x[0]-1 and not self.vision[i] in self.playerHandlerObject.walkLock)) and self.vision[i][1] <= x[1]:
-								self.vision[i] = []
-						except :
-							pass
-				elif self.direction == "down":
-					for i in range(0,len(self.vision)):
-						try :
-							if (self.vision[i][0] == x[0] or (self.vision[i][0] == x[0]+1 and not self.vision[i] in self.playerHandlerObject.walkLock) or (self.vision[i][0] == x[0]-1 and not self.vision[i] in self.playerHandlerObject.walkLock)) and self.vision[i][1] >= x[1]:
-								self.vision[i] = []
-						except :
-							pass
-		self.vision = [x for x in self.vision if x != []]
+		tmp = []
+		for x in self.playerHandlerObject.walkLock:
+			if x in self.vision :
+				tmp.append(x)
+		for x in self.playerHandlerObject.hideouts:
+			if x in self.vision :
+				tmp.append(x)
 
+		quit = False
+		i = 5
+		if self.direction == "left":
+			while (not quit) and i > 0 :
+				if [self.position[0]-i,self.position[1]] in tmp :
+					for y in range (i,6) :
+						self.vision.remove([self.position[0]-y,self.position[1]])
+					quit = True
+				i-=1
+			if quit :
+				self.vision.remove([self.position[0]-4,self.position[1]-1])
+				self.vision.remove([self.position[0]-4,self.position[1]+1])
+				self.vision.remove([self.position[0]-5,self.position[1]-1])
+				self.vision.remove([self.position[0]-5,self.position[1]+1])
+		elif self.direction == "right":
+			while (not quit) and i > 0 :
+				if [self.position[0]+i,self.position[1]] in tmp :
+					for y in range (i,6) :
+						self.vision.remove([self.position[0]+y,self.position[1]])
+					quit = True
+				i-=1
+			if quit :
+				self.vision.remove([self.position[0]+4,self.position[1]-1])
+				self.vision.remove([self.position[0]+4,self.position[1]+1])
+				self.vision.remove([self.position[0]+5,self.position[1]-1])
+				self.vision.remove([self.position[0]+5,self.position[1]+1])
+		elif self.direction == "up":
+			while not quit and i > 0 :
+				if [self.position[0],self.position[1]-i] in tmp :
+					for y in range (i,6) :
+						self.vision.remove([self.position[0],self.position[1]-y])
+					quit = True
+				i-=1
+			if quit :
+				self.vision.remove([self.position[0]+1,self.position[1]-4])
+				self.vision.remove([self.position[0]-1,self.position[1]-4])
+				self.vision.remove([self.position[0]+1,self.position[1]-5])
+				self.vision.remove([self.position[0]-1,self.position[1]-5])
+		elif self.direction == "down":
+			while (not quit) and i > 0 :
+				if [self.position[0],self.position[1]+i] in tmp :
+					for y in range (i,6) :
+						self.vision.remove([self.position[0],self.position[1]+y])
+					quit = True
+				i-=1
+			if quit :
+				self.vision.remove([self.position[0]-1,self.position[1]+4])
+				self.vision.remove([self.position[0]+1,self.position[1]+4])
+				self.vision.remove([self.position[0]-1,self.position[1]+5])
+				self.vision.remove([self.position[0]+1,self.position[1]+5])
 	def search(self):
 		if not self.stun and not self.frames%12:
 			self.position = self.positionPrec[:]
@@ -270,7 +296,12 @@ class Ennemies():
 		
 		if not self.overwriteVisionMethod :
 			self.updateVision()
-		self.cancelVision()
+		try :
+			self.cancelVision()
+		except ValueError:
+			pass
+		except Exception as e :
+			raise e
 
 
 		if self.position==self.playerHandlerObject.position:
